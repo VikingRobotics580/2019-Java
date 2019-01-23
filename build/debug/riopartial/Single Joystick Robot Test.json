@@ -1,0 +1,9 @@
+[
+  {
+    "artifact": "frcJava (in project Single Joystick Robot Test)",
+    "target": "roborio",
+    "debugfile": "frcJava_roborio.debugconfig",
+    "project": "Single Joystick Robot Test",
+    "language": "java"
+  }
+]
