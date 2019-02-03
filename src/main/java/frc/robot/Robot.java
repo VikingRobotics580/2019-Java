@@ -42,6 +42,7 @@ public class Robot extends TimedRobot {
     private Talon MotorOne;
     private Talon MotorTwo;
     private Talon MotorThree;
+    private Talon Elevator;
 
     private Timer m_timer;
 
@@ -60,7 +61,7 @@ public class Robot extends TimedRobot {
     public Robot() {
         //table = NetworkTable.getTable(raspberr);
         compressor = new Compressor();	//null parameter
-        piston = new DoubleSolenoid(0, 4, 5);	
+        piston = new DoubleSolenoid(4, 5);	
     }
 
     @Override
@@ -69,11 +70,12 @@ public class Robot extends TimedRobot {
         MotorOne = new Talon(1);
         MotorTwo = new Talon(2);
         MotorThree = new Talon(3);
+        Elevator = new Talon(6);
     
         LeftDrive = new SpeedControllerGroup(MotorTwo, MotorThree);
         RightDrive = new SpeedControllerGroup(MotorZero, MotorOne);
     
-       // DriveTrain = new DifferentialDrive(LeftDrive, RightDrive);
+        DriveTrain = new DifferentialDrive(LeftDrive, RightDrive);
         joystick = new Joystick(0);
     
         button9 = new JoystickButton(joystick, 9);
@@ -90,7 +92,18 @@ public class Robot extends TimedRobot {
 
     public void elevator(){
 
-
+        if(joystick.getRawButton(10) == true && joystick.getRawButton(9) != true)
+  		{
+  			Elevator.set(0.5); //Up when 10 is pressed
+  		}
+  		else if(joystick.getRawButton(9) == true && joystick.getRawButton(10) != true)
+  		{
+  			Elevator.set(-0.5); //Down when 9 is pressed
+  		}
+  		else
+  		{
+  			Elevator.set(0.0); //Nothing while nothing is pressed
+  		}
 
     }
 
