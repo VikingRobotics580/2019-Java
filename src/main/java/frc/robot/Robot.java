@@ -5,8 +5,6 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-//boat
-
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -46,7 +44,7 @@ public class Robot extends TimedRobot {
     private double position;
 
     public Robot() {
-        table = NetworkTable.getTable("GRIP/myCountoursReport");
+        //table = NetworkTable.getTable(raspberr);
     }
 
     @Override
@@ -59,31 +57,31 @@ public class Robot extends TimedRobot {
         LeftDrive = new SpeedControllerGroup(MotorTwo, MotorThree);
         RightDrive = new SpeedControllerGroup(MotorZero, MotorOne);
     
-        DriveTrain = new DifferentialDrive(LeftDrive, RightDrive);
+       // DriveTrain = new DifferentialDrive(LeftDrive, RightDrive);
         joystick = new Joystick(0);
     
         UsbCamera cam1 = CameraServer.getInstance().startAutomaticCapture();
-        cam1.setResolution(640, 480);
+        cam1.setResolution(320, 240);
     }
 
     @Override
     public void teleopPeriodic() {
         // Use the joystick X axis for lateral movement, Y axis for forward
 
-        left = (-joystick.getY()) + (joystick.getX());
-        right = (-joystick.getY()) - (joystick.getX());
-        position = java.lang.Math.abs(left);
+        //left = (-joystick.getY()) + (joystick.getX());
+       // right = (-joystick.getY()) - (joystick.getX());
+        //position = java.lang.Math.abs(left);
 
-        if (position < java.lang.Math.abs(right)) {
-          position = java.lang.Math.abs(right);
-        }
+        //if (position < java.lang.Math.abs(right)) {
+       //   position = java.lang.Math.abs(right);
+       // }
 
-        if (position > 1) {
-          left = left/position;
-          right = right/position;
-        }
+        //if (position > 1) {
+        //  left = left/position;
+       //   right = right/position;
+      //  }
 
-        DriveTrain.tankDrive(left, right);
+       // DriveTrain.tankDrive(left, right);
    
     }
 }
