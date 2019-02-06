@@ -51,7 +51,9 @@ public class Robot extends TimedRobot {
     private double position;
 
     Compressor compressor;
-    DoubleSolenoid piston;
+    DoubleSolenoid hatch;
+    DoubleSolenoid habFront;
+    DoubleSolenoid habBack;
 
     Button button9;
     Button button10;
@@ -61,7 +63,9 @@ public class Robot extends TimedRobot {
     public Robot() {
         //table = NetworkTable.getTable(raspberr);
         compressor = new Compressor();	//null parameter
-        piston = new DoubleSolenoid(4, 5);	
+        hatch = new DoubleSolenoid(4, 5);	
+        hatch = new DoubleSolenoid(7, 8);	
+        hatch = new DoubleSolenoid(9, 10);	
     }
 
     @Override
@@ -107,7 +111,7 @@ public class Robot extends TimedRobot {
 
     }
 
-    public void moveArm()  
+    public void hatchSolenoid()  
   	{
         //Reads imput from joystick and controls double solenoid based on input
   		compressor.start();
@@ -115,9 +119,29 @@ public class Robot extends TimedRobot {
   		
   		if(joystick.getRawButton(12) == true && joystick.getRawButton(11) != true)
   		{
-  			piston.set(DoubleSolenoid.Value.kForward); //Forward when 12 is pressed
+  			hatch.set(DoubleSolenoid.Value.kForward); //Forward when 12 is pressed
   		}
   		else if(joystick.getRawButton(11) == true && joystick.getRawButton(12) != true)
+  		{
+  			hatch.set(DoubleSolenoid.Value.kReverse); //Reverse when 11 is pressed
+  		}
+  		else
+  		{
+  			hatch.set(DoubleSolenoid.Value.kOff); //Nothing while nothing is pressed
+  		}
+  	}
+
+    public void habSolenoidFront()  
+  	{
+        //Reads imput from joystick and controls double solenoid based on input
+  		compressor.start();
+  		compressor.setClosedLoopControl(true);
+  		
+  		if(joystick.getRawButton(6) == true && joystick.getRawButton(4) != true)
+  		{
+  			piston.set(DoubleSolenoid.Value.kForward); //Forward when 12 is pressed
+  		}
+  		else if(joystick.getRawButton(4) == true && joystick.getRawButton(6) != true)
   		{
   			piston.set(DoubleSolenoid.Value.kReverse); //Reverse when 11 is pressed
   		}
@@ -126,7 +150,6 @@ public class Robot extends TimedRobot {
   			piston.set(DoubleSolenoid.Value.kOff); //Nothing while nothing is pressed
   		}
   	}
-
 
     @Override
     public void teleopPeriodic() {
