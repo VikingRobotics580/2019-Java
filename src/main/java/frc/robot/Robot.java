@@ -139,15 +139,35 @@ public class Robot extends TimedRobot {
   		
   		if(joystick.getRawButton(6) == true && joystick.getRawButton(4) != true)
   		{
-  			piston.set(DoubleSolenoid.Value.kForward); //Forward when 12 is pressed
+  			habFront.set(DoubleSolenoid.Value.kForward); //Forward when 12 is pressed
   		}
   		else if(joystick.getRawButton(4) == true && joystick.getRawButton(6) != true)
   		{
-  			piston.set(DoubleSolenoid.Value.kReverse); //Reverse when 11 is pressed
+  			habFront.set(DoubleSolenoid.Value.kReverse); //Reverse when 11 is pressed
   		}
   		else
   		{
-  			piston.set(DoubleSolenoid.Value.kOff); //Nothing while nothing is pressed
+  			habFront.set(DoubleSolenoid.Value.kOff); //Nothing while nothing is pressed
+  		}
+  	}
+
+    public void habSolenoidBack()  
+  	{
+        //Reads imput from joystick and controls double solenoid based on input
+  		compressor.start();
+  		compressor.setClosedLoopControl(true);
+  		
+  		if(joystick.getRawButton(5) == true && joystick.getRawButton(3) != true)
+  		{
+  			habBack.set(DoubleSolenoid.Value.kForward); //Forward when 12 is pressed
+  		}
+  		else if(joystick.getRawButton(3) == true && joystick.getRawButton(5) != true)
+  		{
+  			habBack.set(DoubleSolenoid.Value.kReverse); //Reverse when 11 is pressed
+  		}
+  		else
+  		{
+  			habBack.set(DoubleSolenoid.Value.kOff); //Nothing while nothing is pressed
   		}
   	}
 
