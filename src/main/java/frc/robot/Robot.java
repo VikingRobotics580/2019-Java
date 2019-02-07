@@ -89,7 +89,7 @@ public class Robot extends TimedRobot {
 
         UsbCamera cam1 = CameraServer.getInstance().startAutomaticCapture();
         cam1.setResolution(320, 240);
-    }
+    } //boat oat wrote moat afloat coat goat float bloat scapegoat throat haha
 
     //shooters = windshield
     //pulleys = talons
