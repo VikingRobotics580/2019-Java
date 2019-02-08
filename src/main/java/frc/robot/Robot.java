@@ -28,6 +28,7 @@ import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.AnalogGyro;
 
 public class Robot extends TimedRobot {
 
@@ -60,6 +61,8 @@ public class Robot extends TimedRobot {
     Button button11;
     Button button12;
 
+    private AnalogGyro gyro;
+
     public Robot() {
         //table = NetworkTable.getTable(raspberr);
         compressor = new Compressor();	//null parameter
@@ -87,8 +90,12 @@ public class Robot extends TimedRobot {
         button11 = new JoystickButton(joystick, 11);
         button12 = new JoystickButton(joystick, 12);
 
+        gyro = new AnalogGyro(1); 
+        gyro.reset();
+
         UsbCamera cam1 = CameraServer.getInstance().startAutomaticCapture();
         cam1.setResolution(320, 240);
+
     } //boat oat wrote moat afloat coat goat float bloat scapegoat throat haha
 
     //shooters = windshield
