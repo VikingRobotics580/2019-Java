@@ -133,7 +133,7 @@ public class Robot extends TimedRobot {
 
     public void habSolenoidFront()  
   	{
-        //Reads imput from joystick and controls double solenoid based on input
+        //Reads input from joystick and controls double solenoid based on input
   		compressor.start();
   		compressor.setClosedLoopControl(true);
   		
