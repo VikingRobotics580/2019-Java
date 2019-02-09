@@ -57,7 +57,6 @@ public class Robot extends TimedRobot {
     private double right;
     private double position;
 
-<<<<<<< HEAD
     private String status = "";
 
     M_I2C i2c = new M_I2C();
