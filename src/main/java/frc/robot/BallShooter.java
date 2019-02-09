@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Timer;
 
-public class BallShooter extends Robot {
+public class BallShooter {
 
     private Talon BallMotor;
     private Joystick joystick;
@@ -27,5 +27,5 @@ public class BallShooter extends Robot {
         }
 
     }
-    
+
 }

@@ -3,7 +3,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Talon;
 
-public class Elevator extends Robot {
+public class Elevator {
 
     private Talon Elevator;
     private Joystick joystick;

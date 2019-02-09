@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 
-public class Solenoid extends Robot {
+public class Solenoid {
 
     Compressor compressor;
     DoubleSolenoid hatch;

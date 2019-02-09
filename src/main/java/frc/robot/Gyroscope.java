@@ -5,7 +5,8 @@ import java.nio.ByteOrder;
 import java.util.BitSet;
 import java.util.TimerTask;
 import frc.robot.Gyroscope;
-
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.Timer;
@@ -15,7 +16,7 @@ import edu.wpi.first.wpilibj.Timer;
  * It allows for communication between the gyroscope since the info back is only in bits.
  */
 
-public class Gyroscope extends Robot{
+public class Gyroscope {
 
 	static final int DATA_SIZE = 4; //4 bytes = 32 bits
 	static final byte PARITY_BIT = (byte) 0x01; //parity check on first bit
