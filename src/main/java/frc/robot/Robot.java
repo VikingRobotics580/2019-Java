@@ -44,8 +44,9 @@ public class Robot extends TimedRobot {
     private Talon MotorTwo;
     private Talon MotorThree;
     private Talon Elevator;
+    private Talon BallMotor;
 
-    private Timer m_timer;
+    private Timer m_timer = new Timer();
 
     private double left;
     private double right;
@@ -56,6 +57,12 @@ public class Robot extends TimedRobot {
     DoubleSolenoid habFront;
     DoubleSolenoid habBack;
 
+    Button button3;
+    Button button4;
+    Button button5;
+    Button button6;
+    Button button7;
+    Button button8;
     Button button9;
     Button button10;
     Button button11;
@@ -66,9 +73,9 @@ public class Robot extends TimedRobot {
     public Robot() {
         //table = NetworkTable.getTable(raspberr);
         compressor = new Compressor();	//null parameter
-        hatch = new DoubleSolenoid(4, 5);	
-        hatch = new DoubleSolenoid(7, 8);	
-        hatch = new DoubleSolenoid(9, 10);	
+        hatch = new DoubleSolenoid(0, 1);	
+        habFront = new DoubleSolenoid(2, 3);	
+        habBack = new DoubleSolenoid(4, 5);	
     }
 
     @Override
@@ -77,7 +84,8 @@ public class Robot extends TimedRobot {
         MotorOne = new Talon(1);
         MotorTwo = new Talon(2);
         MotorThree = new Talon(3);
-        Elevator = new Talon(6);
+        Elevator = new Talon(4);
+        Elevator = new Talon(5);
     
         LeftDrive = new SpeedControllerGroup(MotorTwo, MotorThree);
         RightDrive = new SpeedControllerGroup(MotorZero, MotorOne);
@@ -85,6 +93,12 @@ public class Robot extends TimedRobot {
         DriveTrain = new DifferentialDrive(LeftDrive, RightDrive);
         joystick = new Joystick(0);
     
+        button3 = new JoystickButton(joystick, 3);
+        button4 = new JoystickButton(joystick, 4);
+        button5 = new JoystickButton(joystick, 5);
+        button6 = new JoystickButton(joystick, 6);
+        button6 = new JoystickButton(joystick, 7);
+        button9 = new JoystickButton(joystick, 8);
         button9 = new JoystickButton(joystick, 9);
         button10 = new JoystickButton(joystick, 10);
         button11 = new JoystickButton(joystick, 11);
@@ -176,7 +190,28 @@ public class Robot extends TimedRobot {
   		{
   			habBack.set(DoubleSolenoid.Value.kOff); //Nothing while nothing is pressed
   		}
-  	}
+    }
+    
+    public void ballMotor(){
+
+      if(joystick.getRawButton(8) == true && joystick.getRawButton(7) != true)
+    {
+      BallMotor.set(0.2); //Up when 10 is pressed
+      m_timer.delay(1); 
+      BallMotor.set(0.0); 
+    }
+    else if(joystick.getRawButton(7) == true && joystick.getRawButton(8) != true)
+    {
+      BallMotor.set(-0.2);//Down when 9 is pressed
+      m_timer.delay(1); 
+      BallMotor.set(0.0); 
+    }
+    else
+    {
+      BallMotor.set(0.0); //Nothing while nothing is pressed
+    }
+
+  }
 
     @Override
     public void teleopPeriodic() {
