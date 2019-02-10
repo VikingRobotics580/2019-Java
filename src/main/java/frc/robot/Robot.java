@@ -37,6 +37,7 @@ public class Robot extends TimedRobot {
     private Talon MotorThree;
     private Talon Elevator;
     private Talon BallMotor;
+    private Talon BallShooter;
 
     private Timer m_timer = new Timer();
 
@@ -73,7 +74,8 @@ public class Robot extends TimedRobot {
         MotorTwo = new Talon(2);
         MotorThree = new Talon(3);
         Elevator = new Talon(4);
-        Elevator = new Talon(5);
+        BallMotor = new Talon(5);
+        BallShooter = new Talon(6);
     
         LeftDrive = new SpeedControllerGroup(MotorZero, MotorOne);
         RightDrive = new SpeedControllerGroup(MotorTwo, MotorThree);
@@ -155,7 +157,31 @@ public class Robot extends TimedRobot {
     //shooters = windshield
     //pulleys = talons
 
+<<<<<<< HEAD
     public void drive() {
+=======
+  public void ballShooter(){
+
+    if(joystick.getRawButton(1) == true && joystick.getRawButton(2) != true)
+  {
+    BallShooter.set(0.5); //Up when 10 is pressed
+  }
+  else if(joystick.getRawButton(2) == true && joystick.getRawButton(1) != true)
+  {
+    BallShooter.set(-0.5); //Down when 9 is pressed
+  }
+  else
+  {
+    BallShooter.set(0.0); //Nothing while nothing is pressed
+  }
+
+}
+
+
+    @Override
+    public void teleopPeriodic() {
+        //centerOnObject();
+>>>>>>> 27ec4d8f765da6b309cb497b86b106ee03019fed
         //Use the joystick X axis for lateral movement, Y axis for forward
 
         left = (-joystick.getY()) - (joystick.getX());
