@@ -157,32 +157,7 @@ public class Robot extends TimedRobot {
     //shooters = windshield
     //pulleys = talons
 
-<<<<<<< HEAD
     public void drive() {
-=======
-  public void ballShooter(){
-
-    if(joystick.getRawButton(1) == true && joystick.getRawButton(2) != true)
-  {
-    BallShooter.set(0.5); //Up when 10 is pressed
-  }
-  else if(joystick.getRawButton(2) == true && joystick.getRawButton(1) != true)
-  {
-    BallShooter.set(-0.5); //Down when 9 is pressed
-  }
-  else
-  {
-    BallShooter.set(0.0); //Nothing while nothing is pressed
-  }
-
-}
-
-
-    @Override
-    public void teleopPeriodic() {
-        //centerOnObject();
->>>>>>> 27ec4d8f765da6b309cb497b86b106ee03019fed
-        //Use the joystick X axis for lateral movement, Y axis for forward
 
         left = (-joystick.getY()) - (joystick.getX());
         right = (-joystick.getY()) + (joystick.getX());
@@ -224,7 +199,7 @@ public class Robot extends TimedRobot {
             pressed = false;
         }
 
-        //drive();
+        drive();
 
 
         if (joystick.getRawButton(10) && !pressed) {
