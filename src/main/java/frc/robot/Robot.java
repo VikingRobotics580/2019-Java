@@ -22,7 +22,7 @@ import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 
 public class Robot extends TimedRobot {
 
@@ -43,8 +43,11 @@ public class Robot extends TimedRobot {
     private double left;
     private double right;
     private double position;
+    private boolean pressed;
 
     private String status = "";
+
+    private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
 
     M_I2C i2c = new M_I2C();
     PixyData pkt = i2c.getPixy();
@@ -60,8 +63,11 @@ public class Robot extends TimedRobot {
     Button button11;
     Button button12;
 
+    //Gyroscope gyro = new Gyroscope();
+
     @Override
     public void robotInit() {
+
         MotorZero = new Talon(0);
         MotorOne = new Talon(1);
         MotorTwo = new Talon(2);
@@ -69,12 +75,14 @@ public class Robot extends TimedRobot {
         Elevator = new Talon(4);
         Elevator = new Talon(5);
     
-        LeftDrive = new SpeedControllerGroup(MotorTwo, MotorThree);
-        RightDrive = new SpeedControllerGroup(MotorZero, MotorOne);
+        LeftDrive = new SpeedControllerGroup(MotorZero, MotorOne);
+        RightDrive = new SpeedControllerGroup(MotorTwo, MotorThree);
     
         DriveTrain = new DifferentialDrive(LeftDrive, RightDrive);
         joystick = new Joystick(0);
-    
+        
+        pressed = false;
+
         //UsbCamera cam1 = CameraServer.getInstance().startAutomaticCapture();
         //cam1.setResolution(320, 240);
 
@@ -95,19 +103,19 @@ public class Robot extends TimedRobot {
         button11 = new JoystickButton(joystick, 11);
         button12 = new JoystickButton(joystick, 12);
 
-        UsbCamera cam1 = CameraServer.getInstance().startAutomaticCapture();
-        cam1.setResolution(320, 240);
+        //UsbCamera cam1 = CameraServer.getInstance().startAutomaticCapture();
+        //cam1.setResolution(320, 240);
 
     }
 
     public void centerOnObject(){
+        //pixy values: (x = 0.70-0.85) (y = 0.45 - 0.65) (a = 0.04-0.07)
+
         pkt = i2c.getPixy();
         if(pkt.x != -1){//if data is exist
             System.out.println("Pixy is set up");
             status = "good";
-            if(pkt.x < .48 || pkt.x > .52){
-                //and the 'object', whatever it may be is not in the center
-                //the code on the arduino decides what object to send
+            if((pkt.x >= 0.70 && pkt.x <= 0.85) && (pkt.y >= 0.45 && pkt.y <= 0.65) && (pkt.area >= 0.4 && pkt.area <= 0.7)) {
                 while(pkt.x < .48 || pkt.x > .52){//while it is not center
                     
                     if(pkt.x < .48){//if its on the left side of robot, turn left
@@ -143,14 +151,11 @@ public class Robot extends TimedRobot {
         }
     }  
     
-
     //boat oat wrote moat afloat coat goat float bloat scapegoat throat haha
     //shooters = windshield
     //pulleys = talons
 
-    @Override
-    public void teleopPeriodic() {
-        //centerOnObject();
+    public void drive() {
         //Use the joystick X axis for lateral movement, Y axis for forward
 
         left = (-joystick.getY()) - (joystick.getX());
@@ -167,6 +172,40 @@ public class Robot extends TimedRobot {
         }
 
         DriveTrain.tankDrive(left, right);
-   
+    }
+
+    public void checkConnections() {
+        if (i2c.getPixy().x != -1) {
+            System.out.println("Pixy Status: Working");
+            System.out.println("Pixy Status: Error");
+        } 
+        Timer.delay(1);
+    }
+
+    @Override
+    public void teleopPeriodic() {
+        if (joystick.getRawButton(12) && !pressed) {
+            checkConnections();
+            pressed = true;
+        } else if (!joystick.getRawButton(12)) {
+            pressed = false;
+        }
+
+        if (joystick.getRawButton(11) && !pressed) {
+            System.out.println(gyro.getAngle());
+            pressed = true;
+        } else if (!joystick.getRawButton(11)) {
+            pressed = false;
+        }
+
+        //drive();
+
+
+        if (joystick.getRawButton(10) && !pressed) {
+            System.out.println(i2c.getDistance());
+            pressed = true;
+        } else if (!joystick.getRawButton(10)) {
+            pressed = false;
+        }
     }
 }

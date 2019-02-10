@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.I2C.Port;
 
 public class M_I2C {
+
 	private static I2C Wire = new I2C(Port.kOnboard, 4);//uses the i2c port on the RoboRIO
 														//uses address 4, must match arduino
 	private static final int MAX_BYTES = 32;
@@ -33,6 +34,11 @@ public class M_I2C {
 			pkt.area = Double.parseDouble(info[2]);//set area
 		}
 		return pkt;
+	}
+
+	public String getDistance() {
+		String distance = read();
+		return distance;
 	}
 	
 	private String read(){//function to read the data from arduino
