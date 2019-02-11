@@ -250,4 +250,8 @@ public class Robot extends TimedRobot {
         drive();
        
     }
+
+    public void autonomousPeriodic() {
+        teleopPeriodic();
+    }
 }
