@@ -52,6 +52,7 @@ public class Robot extends TimedRobot {
 
     M_I2C i2c = new M_I2C();
     PixyData pkt = i2c.getPixy();
+    Solenoid solenoid = new Solenoid();
 
     Button button3;
     Button button4;
@@ -185,28 +186,34 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopPeriodic() {
-        if (joystick.getRawButton(12) && !pressed) {
+        /**if (joystick.getRawButton(12) && !pressed) {
             checkConnections();
             pressed = true;
         } else if (!joystick.getRawButton(12)) {
             pressed = false;
-        }
+        }*/
 
-        if (joystick.getRawButton(11) && !pressed) {
+        /*if (joystick.getRawButton(11) && !pressed) {
             System.out.println(gyro.getAngle());
             pressed = true;
         } else if (!joystick.getRawButton(11)) {
             pressed = false;
         }
+        */
 
         drive();
+        //solenoid.habSolenoidBack();
+        //solenoid.habSolenoidFront();
+        if (joystick.getRawButton(12) || joystick.getRawButton(11)) {
+            solenoid.hatchSolenoid();
+        }
 
-
-        if (joystick.getRawButton(10) && !pressed) {
+        /*if (joystick.getRawButton(10) && !pressed) {
             System.out.println(i2c.getDistance());
             pressed = true;
         } else if (!joystick.getRawButton(10)) {
             pressed = false;
         }
+        */
     }
 }
