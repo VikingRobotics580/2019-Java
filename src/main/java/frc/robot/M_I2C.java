@@ -23,26 +23,27 @@ public class M_I2C {
 			
 	}
 	
-	public PixyData getPixy(){//reads the data from arduino and saves it
+	public Arduino getArduino() {//reads the data from arduino and saves it
 		String info[] = read().split("\\|");//everytime a "|" is used it splits the data,
 											//and adds it as a new element in the array
-		PixyData pkt = new PixyData();  //creates a new packet to hold the data 
+		Arduino sensorData = new Arduino();  //creates a new packet to hold the data 
 		if(info[0].equals("none") || info[0].equals("")){//checks to make sure there is data 
-			pkt.x = -1;//the x val will never be -1 so we can text later in code to make sure 
+			sensorData.x = -1;//the x val will never be -1 so we can text later in code to make sure 
 					   //there is data
-			pkt.y = -1;
-			pkt.area = -1;
-		}else if(info.length == 3){//if there is an x, y, and area value the length equals 3
-			pkt.x = Double.parseDouble(info[0]);//set x
-			pkt.y = Double.parseDouble(info[1]);//set y
-			pkt.area = Double.parseDouble(info[2]);//set area
+			sensorData.y = -1;
+			sensorData.area = -1;
+		}else if(info.length == 4){//if there is an x, y, and area value the length equals 3
+			sensorData.x = Double.parseDouble(info[0]);//set x
+			sensorData.y = Double.parseDouble(info[1]);//set y
+			sensorData.area = Double.parseDouble(info[2]);//set area
+			sensorData.distance = Double.parseDouble(info[3]);
 		}
-		return pkt;
+		return sensorData;
 	}
 
-	public String getDistance() {
-		String distance = read();
-		return distance;
+	public double getDistance() {
+		Arduino receive = getArduino();
+		return receive.distance;
 	}
 	
 	private String read(){//function to read the data from arduino

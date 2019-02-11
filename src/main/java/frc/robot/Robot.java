@@ -52,19 +52,8 @@ public class Robot extends TimedRobot {
     private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
 
     M_I2C i2c = new M_I2C();
-    PixyData pkt = i2c.getPixy();
+    Arduino arduino = i2c.getArduino();
     Solenoid solenoid;
-
-    Button button3;
-    Button button4;
-    Button button5;
-    Button button6;
-    Button button7;
-    Button button8;
-    Button button9;
-    Button button10;
-    Button button11;
-    Button button12;
 
     //Gyroscope gyro = new Gyroscope();
 
@@ -93,37 +82,45 @@ public class Robot extends TimedRobot {
 
         System.out.println("bitcht");
 
-        System.out.println(pkt.area);
-        System.out.println(pkt.x);
-        System.out.println(pkt.y);
-
-        button3 = new JoystickButton(joystick, 3);
-        button4 = new JoystickButton(joystick, 4);
-        button5 = new JoystickButton(joystick, 5);
-        button6 = new JoystickButton(joystick, 6);
-        button6 = new JoystickButton(joystick, 7);
-        button9 = new JoystickButton(joystick, 8);
-        button9 = new JoystickButton(joystick, 9);
-        button10 = new JoystickButton(joystick, 10);
-        button11 = new JoystickButton(joystick, 11);
-        button12 = new JoystickButton(joystick, 12);
+        System.out.println(arduino.area);
+        System.out.println(arduino.x);
+        System.out.println(arduino.y);
 
     }
 
-    public void centerOnObject(){
+    public void visionCheck(){ //Checking if it's okay to shoot ballshooter
         //pixy values: (x = 0.70-0.85) (y = 0.45 - 0.65) (a = 0.04-0.07)
-        pkt = i2c.getPixy();
-        if(pkt.x != -1){//if data is exist
+        arduino = i2c.getArduino();
+        if(arduino.x != -1){//if data is exist
             System.out.println("Pixy is set up");
             status = "good";
-            if((pkt.x >= 0.70 && pkt.x <= 0.85) && (pkt.y >= 0.45 && pkt.y <= 0.65) && (pkt.area >= 0.4 && pkt.area <= 0.7)) {
+            if((arduino.x >= 0.70 && arduino.x <= 0.85) && (arduino.y >= 0.45 && arduino.y <= 0.65) && (arduino.area >= 0.4 && arduino.area <= 0.7) && (arduino.distance > 8)) {
                 System.out.println("Go for it");
             }
         }
         if (!status.equals("bad")) {
-            System.out.println(pkt.area);
-            System.out.println(pkt.x);
-            System.out.println(pkt.y);
+            System.out.println(arduino.area);
+            System.out.println(arduino.x);
+            System.out.println(arduino.y);
+            System.out.println("Camera data no data");
+            status = "bad";
+        }
+    }  
+
+    public void visionCheckNoUltra(){ //Checking if it's okay to shoot ballshooter if ultrasonic is defective
+        //pixy values: (x = 0.70-0.85) (y = 0.45 - 0.65) (a = 0.04-0.07)
+        arduino = i2c.getArduino();
+        if(arduino.x != -1){//if data is exist
+            System.out.println("Pixy is set up");
+            status = "good";
+            if((arduino.x >= 0.70 && arduino.x <= 0.85) && (arduino.y >= 0.45 && arduino.y <= 0.65) && (arduino.area >= 0.4 && arduino.area <= 0.7)) {
+                System.out.println("Go for it");
+            }
+        }
+        if (!status.equals("bad")) {
+            System.out.println(arduino.area);
+            System.out.println(arduino.x);
+            System.out.println(arduino.y);
             System.out.println("Camera data no data");
             status = "bad";
         }
@@ -151,31 +148,91 @@ public class Robot extends TimedRobot {
         DriveTrain.tankDrive(left, right);
     }
 
+    public void rotate90Left() {
+        double to = gyro.getAngle() + 90;
+        while (gyro.getAngle() < to) {
+            DriveTrain.tankDrive(1,1);
+        }
+    }
+
+    public void rotate90Right() {
+        double to = gyro.getAngle() - 90;
+        while (gyro.getAngle() < to) {
+            DriveTrain.tankDrive(-1,-1);
+        }
+    }
+
+    public void goto0() {
+        if (gyro.getAngle() > 180) {
+            while (gyro.getAngle() > -3 && gyro.getAngle() < 3) {
+                DriveTrain.tankDrive(1,1);
+            }
+        } else {
+            while (gyro.getAngle() > -3 && gyro.getAngle() < 3) {
+                DriveTrain.tankDrive(-1,-1);
+            }
+        }
+    }
+
+    public void goto180() {
+        while (gyro.getAngle() > 178 && gyro.getAngle() < 182) {
+            DriveTrain.tankDrive(-1,-1);
+        }
+    }
+
     public void checkConnections() {
-        if (i2c.getPixy().x != -1) {
+        if (i2c.getArduino().x != -1) {
             System.out.println("Pixy Status: Working");
             System.out.println("Pixy Status: Error");
+            System.out.println("Angle: " + gyro.getAngle());
+            System.out.println("Distance: " + i2c.getDistance());
         } 
-        Timer.delay(1);
     }
 
     @Override
     public void teleopPeriodic() {
-        /**if (joystick.getRawButton(12) && !pressed) {
+
+        //If 2 is pressed, debug message
+        if (joystick.getRawButton(2) && !pressed) {
             checkConnections();
             pressed = true;
         } else if (!joystick.getRawButton(12)) {
             pressed = false;
-        }*/
+        }
 
-        /*if (joystick.getRawButton(11) && !pressed) {
-            System.out.println(gyro.getAngle());
+        //If 5 is pressed, rotate 90 to left
+        if (joystick.getRawButton(5) && !pressed) {
+            rotate90Left();
             pressed = true;
-        } else if (!joystick.getRawButton(11)) {
+        } else if (!joystick.getRawButton(5)) {
             pressed = false;
         }
-        */
 
+        //If 6 is pressed, rotate 90 to right
+        if (joystick.getRawButton(6) && !pressed) {
+            rotate90Right();
+            pressed = true;
+        } else if (!joystick.getRawButton(6)) {
+            pressed = false;
+        }
+
+        //If 3 is pressed, go back to 0
+        if (joystick.getRawButton(3) && !pressed) {
+            goto0();
+            pressed = true;
+        } else if (!joystick.getRawButton(3)) {
+            pressed = false;
+        }
+
+        //If 3 is pressed, go to 180
+        if (joystick.getRawButton(4) && !pressed) {
+            goto180();
+            pressed = true;
+        } else if (!joystick.getRawButton(4)) {
+            pressed = false;
+        }
+
+        //Solenoid Checks, buttons 12-7
         if (joystick.getRawButton(12)) {
             solenoid.hatchSolenoidForward();
         } else if (joystick.getRawButton(11)) {
@@ -191,15 +248,6 @@ public class Robot extends TimedRobot {
         }
 
         drive();
-        //solenoid.habSolenoidBack();
-        //solenoid.habSolenoidFront();
-
-        /*if (joystick.getRawButton(10) && !pressed) {
-            System.out.println(i2c.getDistance());
-            pressed = true;
-        } else if (!joystick.getRawButton(10)) {
-            pressed = false;
-        }
-        */
+       
     }
 }
