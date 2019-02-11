@@ -1,23 +1,20 @@
 // VikingRobotics 2019 FRC Robotics
-// Programming Team: Bhada Yun, Finn Cawley, Kate Hirshbeg, Gavin Sanchez
+// Programming Team: Bhada Yun, Finn Cawley, Kate Hirshberg, Gavin Sanchez
 // Solenoid Code
 
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 public class Solenoid {
 
-    //Compressor compressor;
     DoubleSolenoid hatch;
     DoubleSolenoid habFront;
     DoubleSolenoid habBack;
     Joystick joystick;
 
     public Solenoid(Joystick joystick) {
-        //compressor = new Compressor();
         hatch = new DoubleSolenoid(0, 1);	
         habFront = new DoubleSolenoid(2, 3);	
         habBack = new DoubleSolenoid(4, 5);	
@@ -76,6 +73,7 @@ public class Solenoid {
 
 /*
 Repressed Test Code: 
+    All compressor instantiations
     compressor.start();
     compressor.setClosedLoopControl(true);
 */

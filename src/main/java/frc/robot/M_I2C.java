@@ -1,5 +1,5 @@
 // VikingRobotics 2019 FRC Robotics
-// Programming Team: Bhada Yun, Finn Cawley, Kate Hirshbeg, Gavin Sanchez
+// Programming Team: Bhada Yun, Finn Cawley, Kate Hirshberg, Gavin Sanchez
 // I2C Receiver for Arduino
 
 package frc.robot;

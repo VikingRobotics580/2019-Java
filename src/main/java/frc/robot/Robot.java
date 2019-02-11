@@ -6,7 +6,7 @@
 /*----------------------------------------------------------------------------*/
 
 // VikingRobotics 2019 FRC Robotics
-// Programming Team: Bhada Yun, Finn Cawley, Kate Hirshbeg, Gavin Sanchez
+// Programming Team: Bhada Yun, Finn Cawley, Kate Hirshberg, Gavin Sanchez
 // Robot base program
 
 //boat
@@ -19,9 +19,6 @@ import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.cscore.CvSink;
-import edu.wpi.cscore.CvSource;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -91,8 +88,8 @@ public class Robot extends TimedRobot {
         
         pressed = false;
 
-        //UsbCamera cam1 = CameraServer.getInstance().startAutomaticCapture();
-        //cam1.setResolution(320, 240);
+        UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+        camera.setResolution(320, 240);
 
         System.out.println("bitcht");
 
@@ -110,9 +107,6 @@ public class Robot extends TimedRobot {
         button10 = new JoystickButton(joystick, 10);
         button11 = new JoystickButton(joystick, 11);
         button12 = new JoystickButton(joystick, 12);
-
-        //UsbCamera cam1 = CameraServer.getInstance().startAutomaticCapture();
-        //cam1.setResolution(320, 240);
 
     }
 
