@@ -5,6 +5,10 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
+// VikingRobotics 2019 FRC Robotics
+// Programming Team: Bhada Yun, Finn Cawley, Kate Hirshbeg, Gavin Sanchez
+// Robot base program
+
 //boat
 
 package frc.robot;
@@ -52,7 +56,7 @@ public class Robot extends TimedRobot {
 
     M_I2C i2c = new M_I2C();
     PixyData pkt = i2c.getPixy();
-    Solenoid solenoid = new Solenoid();
+    Solenoid solenoid;
 
     Button button3;
     Button button4;
@@ -83,6 +87,7 @@ public class Robot extends TimedRobot {
     
         DriveTrain = new DifferentialDrive(LeftDrive, RightDrive);
         joystick = new Joystick(0);
+        solenoid = new Solenoid(joystick);
         
         pressed = false;
 
@@ -113,38 +118,14 @@ public class Robot extends TimedRobot {
 
     public void centerOnObject(){
         //pixy values: (x = 0.70-0.85) (y = 0.45 - 0.65) (a = 0.04-0.07)
-
         pkt = i2c.getPixy();
         if(pkt.x != -1){//if data is exist
             System.out.println("Pixy is set up");
             status = "good";
             if((pkt.x >= 0.70 && pkt.x <= 0.85) && (pkt.y >= 0.45 && pkt.y <= 0.65) && (pkt.area >= 0.4 && pkt.area <= 0.7)) {
-                while(pkt.x < .48 || pkt.x > .52){//while it is not center
-                    
-                    if(pkt.x < .48){//if its on the left side of robot, turn left
-                        System.out.println("Would go left");
-                        /*
-                        drive.setLDrive(-0.2);//this is our left side of tank drive
-                        drive.setRDrive(0.2);//you drive code might differ
-                        */
-                    }
-                    if(pkt.x > .52){//if its on the right side of robot, turn right
-                        System.out.println("Would go right");
-                        /*
-                        drive.setLDrive(0.2);
-                        drive.setRDrive(-0.2);
-                        */
-                    }
-                    if(pkt.y == -1) {//Restart if ball lost during turn
-                        System.out.println("Restart ball");
-                        break;
-                    }
-                    pkt = i2c.getPixy();//refresh the data
-                    System.out.println("XPos: " + pkt.x);//print the data just to see
-                }
+                System.out.println("Go for it");
             }
         }
-            
         if (!status.equals("bad")) {
             System.out.println(pkt.area);
             System.out.println(pkt.x);
@@ -201,12 +182,23 @@ public class Robot extends TimedRobot {
         }
         */
 
+        if (joystick.getRawButton(12)) {
+            solenoid.hatchSolenoidForward();
+        } else if (joystick.getRawButton(11)) {
+            solenoid.hatchSolenoidBackward();
+        } else if (joystick.getRawButton(10)) {
+            solenoid.habSolenoidFrontForward();
+        } else if (joystick.getRawButton(9)) {
+            solenoid.habSolenoidFrontBackward();
+        } else if (joystick.getRawButton(8)) {
+            solenoid.habSolenoidBackForward();
+        } else if (joystick.getRawButton(7)) {
+            solenoid.habSolenoidBackBackward();
+        }
+
         drive();
         //solenoid.habSolenoidBack();
         //solenoid.habSolenoidFront();
-        if (joystick.getRawButton(12) || joystick.getRawButton(11)) {
-            solenoid.hatchSolenoid();
-        }
 
         /*if (joystick.getRawButton(10) && !pressed) {
             System.out.println(i2c.getDistance());
