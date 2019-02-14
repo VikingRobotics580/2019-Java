@@ -5,6 +5,10 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
+// VikingRobotics 2019 FRC Robotics
+// Programming Team: Bhada Yun, Finn Cawley, Kate Hirshberg, Gavin Sanchez
+// Main
+
 package frc.robot;
 
 import edu.wpi.first.wpilibj.RobotBase;
