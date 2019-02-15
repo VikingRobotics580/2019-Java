@@ -7,7 +7,7 @@
 
 // VikingRobotics 2019 FRC Robotics
 // Programming Team: Bhada Yun, Finn Cawley, Kate Hirshberg, Gavin Sanchez
-// Main, DO NOT EDIT
+// Main
 
 package frc.robot;
 
