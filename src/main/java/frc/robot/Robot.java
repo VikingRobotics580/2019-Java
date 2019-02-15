@@ -1,53 +1,47 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 // VikingRobotics 2019 FRC Robotics
 // Programming Team: Bhada Yun, Finn Cawley, Kate Hirshberg
 // Robot base program
 
 package frc.robot;
 
-// General
+// General:
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Timer;
 
-// Controls 
+// Controls: 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 
-// Sensors
+// Sensors:
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 
-// Subsystems
+// Subsystems:
 
 import frc.robot.subsystems.Solenoid;
-import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.robot.subsystems.*;
+import frc.robot.subsystems.BallShooter;
+import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.M_I2C;
+import frc.robot.subsystems.Arduino;
 
 public class Robot extends TimedRobot {
 
-    public static OI oi;
+    // Controls:
+    private Joystick leftJoystick;
+    private Joystick rightJoystick;
 
-    // Controls
-    public Joystick leftJoystick;
-    public Joystick rightJoystick;
-
-    // Drive
+    // Drive:
+    private DifferentialDrive DriveTrain;
     private SpeedControllerGroup LeftDrive;
     private SpeedControllerGroup RightDrive;
 
-    // Talons
+    // Talons:
     private Talon MotorZero;
     private Talon MotorOne;
     private Talon MotorTwo;
@@ -56,7 +50,7 @@ public class Robot extends TimedRobot {
     private Talon BallMotor;
     private Talon BallShooter;
 
-    // General
+    // General: 
     private Timer m_timer = new Timer();
     private double left;
     private double right;
@@ -64,15 +58,14 @@ public class Robot extends TimedRobot {
     private boolean pressed;
     private String status = "";
 
-    // Sensors
-    public static Drive drive = new Drive();
+    // Sensors:
     private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
     M_I2C i2c = new M_I2C();
     Arduino arduino = i2c.getArduino();
 
     Solenoid solenoid;
 
-    // Initialization
+    // Initialization:
     @Override
     public void robotInit() {
         // Talons:
@@ -87,12 +80,13 @@ public class Robot extends TimedRobot {
         // Drive: 
         LeftDrive = new SpeedControllerGroup(MotorZero, MotorOne);
         RightDrive = new SpeedControllerGroup(MotorTwo, MotorThree);
+        DriveTrain = new DifferentialDrive(LeftDrive, RightDrive);
 
         // Controls:
 
         leftJoystick = new Joystick(0);
         rightJoystick = new Joystick(1);
-        solenoid = new Solenoid();
+        solenoid = new Solenoid(rightJoystick);
         pressed = false;
 
         // Sensors:
@@ -143,7 +137,74 @@ public class Robot extends TimedRobot {
             status = "bad";
         }
     }  
-  
+
+    /*
+    boat oat wrote moat afloat coat goat float bloat scapegoat throat haha
+    //shooters = windshield
+    //pulleys = talons
+    */
+
+    // Main Drive Code:
+    public void drive() {
+        left = (-rightJoystick.getY()) - (rightJoystick.getX());
+        right = (-rightJoystick.getY()) + (rightJoystick.getX());
+        position = java.lang.Math.abs(left);
+
+        if (position < java.lang.Math.abs(right)) {
+          position = java.lang.Math.abs(right);
+        }
+
+        if (position > 1) {
+          left = left/position;
+          right = right/position;
+        }
+        DriveTrain.tankDrive(left, right);
+    }
+
+    // Rotate robot 90 deg to the left
+    public void rotate90Left() {
+        double to = gyro.getAngle() + 90;
+        if (gyro.isConnected()) {
+            while (gyro.getAngle() < to) {
+                DriveTrain.tankDrive(1,1);
+            }
+        }
+    }
+
+    // Rotate robot 90 deg to the right
+    public void rotate90Right() {
+        double to = gyro.getAngle() - 90;
+        if (gyro.isConnected()) {
+            while (gyro.getAngle() < to) {
+                DriveTrain.tankDrive(-1,-1);
+            }
+        }
+    }
+
+    // Go back to 0
+    public void goto0() {
+        if (gyro.isConnected()) {
+            if (gyro.getAngle() > 180) {
+                while (gyro.getAngle() > -3 && gyro.getAngle() < 3) {
+                    DriveTrain.tankDrive(1,1);
+                }
+            } else {
+                while (gyro.getAngle() > -3 && gyro.getAngle() < 3) {
+                    DriveTrain.tankDrive(-1,-1);
+                }
+            }
+        }
+    }
+
+    // Go to 180 degree position
+    public void goto180() {
+        if (gyro.isConnected()) {
+            while (gyro.getAngle() > 178 && gyro.getAngle() < 182) {
+                DriveTrain.tankDrive(-1,-1);
+            }
+        }
+    }
+
     // Reset Gyro:
     public void resetGyro() {
         gyro.reset();
@@ -246,6 +307,8 @@ public class Robot extends TimedRobot {
 >>>>>>> 0fee9883f3518736ece6171a0f62088ea3980e9a
         }
 
+        drive();
+       
     }
 
     // Teleop
