@@ -13,6 +13,8 @@
 
 package frc.robot;
 
+import frc.*;
+
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Talon;
@@ -46,7 +48,7 @@ public class Robot extends TimedRobot {
     private double left;
     private double right;
     private double position;
-    private boolean pressed;
+    private boolean pressed; //I'm like groceries
 
     private String status = "";
 
@@ -206,20 +208,8 @@ public class Robot extends TimedRobot {
         }
 
         //If 5 is pressed, rotate 90 to left
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
         if (joystick.getRawButton(5) && !pressed) {
             //rotate90Left();
-=======
-        if (joystick.getRawButton(5) && !pressed) {
-            rotate90Left();
->>>>>>> parent of 580ba0c... Subsystems, Stylizing, EVERYTHING.
-=======
-        if (joystick.getRawButton(5) && !pressed) {
-            rotate90Left();
->>>>>>> parent of 580ba0c... Subsystems, Stylizing, EVERYTHING.
             pressed = true;
         } else if (!joystick.getRawButton(5)) {
             pressed = false;
@@ -227,15 +217,7 @@ public class Robot extends TimedRobot {
 
         //If 6 is pressed, rotate 90 to right
         if (joystick.getRawButton(6) && !pressed) {
-<<<<<<< HEAD
-<<<<<<< HEAD
             //rotate90Right();
-=======
-            rotate90Right();
->>>>>>> parent of 580ba0c... Subsystems, Stylizing, EVERYTHING.
-=======
-            rotate90Right();
->>>>>>> parent of 580ba0c... Subsystems, Stylizing, EVERYTHING.
             pressed = true;
         } else if (!joystick.getRawButton(6)) {
             pressed = false;
@@ -243,15 +225,7 @@ public class Robot extends TimedRobot {
 
         //If 3 is pressed, go back to 0
         if (joystick.getRawButton(3) && !pressed) {
-<<<<<<< HEAD
-<<<<<<< HEAD
             //goto0();
-=======
-            goto0();
->>>>>>> parent of 580ba0c... Subsystems, Stylizing, EVERYTHING.
-=======
-            goto0();
->>>>>>> parent of 580ba0c... Subsystems, Stylizing, EVERYTHING.
             pressed = true;
         } else if (!joystick.getRawButton(3)) {
             pressed = false;
@@ -259,62 +233,10 @@ public class Robot extends TimedRobot {
 
         //If 4 is pressed, go to 180
         if (joystick.getRawButton(4) && !pressed) {
-<<<<<<< HEAD
-<<<<<<< HEAD
             //goto180();
             pressed = true;
         } else if (!joystick.getRawButton(4)) {
             pressed = false;
-=======
-        if (rightJoystick.getRawButtonReleased(5)) {
-            //rotate90Left();
-=======
-        if (joystick.getRawButton(5) && !pressed) {
-            rotate90Left();
-            pressed = true;
-        } else if (!joystick.getRawButton(5)) {
-            pressed = false;
->>>>>>> parent of 580ba0c... Subsystems, Stylizing, EVERYTHING.
-        }
-
-        //If 6 is pressed, rotate 90 to right
-        if (joystick.getRawButton(6) && !pressed) {
-            rotate90Right();
-            pressed = true;
-        } else if (!joystick.getRawButton(6)) {
-            pressed = false;
-        }
-
-        //If 3 is pressed, go back to 0
-        if (joystick.getRawButton(3) && !pressed) {
-            goto0();
-            pressed = true;
-        } else if (!joystick.getRawButton(3)) {
-            pressed = false;
-        }
-
-        //If 4 is pressed, go to 180
-<<<<<<< HEAD
-        if (rightJoystick.getRawButtonReleased(4)) {
-            //goto180();
->>>>>>> 0fee9883f3518736ece6171a0f62088ea3980e9a
-=======
-        if (joystick.getRawButton(4) && !pressed) {
-=======
->>>>>>> parent of 580ba0c... Subsystems, Stylizing, EVERYTHING.
-=======
->>>>>>> parent of 580ba0c... Subsystems, Stylizing, EVERYTHING.
-            goto180();
-            pressed = true;
-        } else if (!joystick.getRawButton(4)) {
-            pressed = false;
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> parent of 580ba0c... Subsystems, Stylizing, EVERYTHING.
-=======
->>>>>>> parent of 580ba0c... Subsystems, Stylizing, EVERYTHING.
-=======
->>>>>>> parent of 580ba0c... Subsystems, Stylizing, EVERYTHING.
         }
 
         //Solenoid Checks, buttons 12-7
@@ -322,10 +244,6 @@ public class Robot extends TimedRobot {
             solenoid.hatchSolenoidForward();
         } else if (joystick.getRawButton(11)) {
             solenoid.hatchSolenoidBackward();
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
         } else if (joystick.getRawButton(10)) {
             //solenoid.habSolenoidFrontForward();
         } else if (joystick.getRawButton(9)) {
@@ -334,25 +252,6 @@ public class Robot extends TimedRobot {
             //solenoid.habSolenoidBackForward();
         } else if (joystick.getRawButton(7)) {
             //solenoid.habSolenoidBackBackward();
-=======
-        } else if (rightJoystick.getRawButton(10)) {
-=======
-        } else if (joystick.getRawButton(10)) {
->>>>>>> parent of 580ba0c... Subsystems, Stylizing, EVERYTHING.
-=======
-        } else if (joystick.getRawButton(10)) {
->>>>>>> parent of 580ba0c... Subsystems, Stylizing, EVERYTHING.
-=======
-        } else if (joystick.getRawButton(10)) {
->>>>>>> parent of 580ba0c... Subsystems, Stylizing, EVERYTHING.
-            solenoid.habSolenoidFrontForward();
-        } else if (joystick.getRawButton(9)) {
-            solenoid.habSolenoidFrontBackward();
-        } else if (joystick.getRawButton(8)) {
-            solenoid.habSolenoidBackForward();
-        } else if (joystick.getRawButton(7)) {
-            solenoid.habSolenoidBackBackward();
->>>>>>> 0fee9883f3518736ece6171a0f62088ea3980e9a
         }
 
         drive();
