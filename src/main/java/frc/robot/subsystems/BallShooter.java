@@ -11,7 +11,10 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Timer;
 
-public class BallShooter {
+public class BallShooter extends Subsystem {
+
+    public void initDefaultCommand() {
+    }
 
     private Talon BallMotor;
     private Joystick joystick;
