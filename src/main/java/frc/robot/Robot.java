@@ -208,8 +208,13 @@ public class Robot extends TimedRobot {
         //If 5 is pressed, rotate 90 to left
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         if (joystick.getRawButton(5) && !pressed) {
             //rotate90Left();
+=======
+        if (joystick.getRawButton(5) && !pressed) {
+            rotate90Left();
+>>>>>>> parent of 580ba0c... Subsystems, Stylizing, EVERYTHING.
             pressed = true;
         } else if (!joystick.getRawButton(5)) {
             pressed = false;
@@ -217,7 +222,11 @@ public class Robot extends TimedRobot {
 
         //If 6 is pressed, rotate 90 to right
         if (joystick.getRawButton(6) && !pressed) {
+<<<<<<< HEAD
             //rotate90Right();
+=======
+            rotate90Right();
+>>>>>>> parent of 580ba0c... Subsystems, Stylizing, EVERYTHING.
             pressed = true;
         } else if (!joystick.getRawButton(6)) {
             pressed = false;
@@ -225,7 +234,11 @@ public class Robot extends TimedRobot {
 
         //If 3 is pressed, go back to 0
         if (joystick.getRawButton(3) && !pressed) {
+<<<<<<< HEAD
             //goto0();
+=======
+            goto0();
+>>>>>>> parent of 580ba0c... Subsystems, Stylizing, EVERYTHING.
             pressed = true;
         } else if (!joystick.getRawButton(3)) {
             pressed = false;
@@ -233,6 +246,7 @@ public class Robot extends TimedRobot {
 
         //If 4 is pressed, go to 180
         if (joystick.getRawButton(4) && !pressed) {
+<<<<<<< HEAD
             //goto180();
             pressed = true;
         } else if (!joystick.getRawButton(4)) {
@@ -272,10 +286,15 @@ public class Robot extends TimedRobot {
 >>>>>>> 0fee9883f3518736ece6171a0f62088ea3980e9a
 =======
         if (joystick.getRawButton(4) && !pressed) {
+=======
+>>>>>>> parent of 580ba0c... Subsystems, Stylizing, EVERYTHING.
             goto180();
             pressed = true;
         } else if (!joystick.getRawButton(4)) {
             pressed = false;
+<<<<<<< HEAD
+>>>>>>> parent of 580ba0c... Subsystems, Stylizing, EVERYTHING.
+=======
 >>>>>>> parent of 580ba0c... Subsystems, Stylizing, EVERYTHING.
         }
 
@@ -284,6 +303,7 @@ public class Robot extends TimedRobot {
             solenoid.hatchSolenoidForward();
         } else if (joystick.getRawButton(11)) {
             solenoid.hatchSolenoidBackward();
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
         } else if (joystick.getRawButton(10)) {
@@ -296,6 +316,9 @@ public class Robot extends TimedRobot {
             //solenoid.habSolenoidBackBackward();
 =======
         } else if (rightJoystick.getRawButton(10)) {
+=======
+        } else if (joystick.getRawButton(10)) {
+>>>>>>> parent of 580ba0c... Subsystems, Stylizing, EVERYTHING.
 =======
         } else if (joystick.getRawButton(10)) {
 >>>>>>> parent of 580ba0c... Subsystems, Stylizing, EVERYTHING.
