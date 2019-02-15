@@ -6,14 +6,9 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.Talon;
 
-public class Elevator extends Subsystem {
-
-    public void initDefaultCommand() {
-
-    }
+public class Elevator {
 
     private Talon Elevator;
     private Joystick joystick;

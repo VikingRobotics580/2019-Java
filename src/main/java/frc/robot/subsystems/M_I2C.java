@@ -1,10 +1,3 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 // VikingRobotics 2019 FRC Robotics
 // Programming Team: Bhada Yun, Finn Cawley, Kate Hirshberg, Gavin Sanchez
 // I2C Receiver for Arduino
@@ -14,13 +7,8 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.I2C.Port;
-import edu.wpi.first.wpilibj.command.Subsystem;
 
-public class M_I2C extends Subsystem {
-
-	public void initDefaultCommand() {
-		
-	}
+public class M_I2C {
 
 	private static I2C Wire = new I2C(Port.kOnboard, 4);//uses the i2c port on the RoboRIO
 														//uses address 4, must match arduino
