@@ -1,9 +1,8 @@
 // VikingRobotics 2019 FRC Robotics
 // Programming Team: Bhada Yun, Finn Cawley, Kate Hirshberg, Gavin Sanchez
 // Solenoid Code
-// Lead: Finn Cawley & Bhada Yun
 
-package frc.robot.subsystems;
+package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
