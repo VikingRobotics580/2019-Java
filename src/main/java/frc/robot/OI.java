@@ -40,12 +40,12 @@ public class OI {
         return(rightJoystick.getRawButtonPressed(7) && !rightJoystick.getRawButtonPressed(8));
     }    
 
-    public static double rightJoystickY() {
-        return(rightJoystick.getY());
-    }
-
     public static double rightJjoystickX() {
         return(rightJoystick.getX());
+    }
+
+    public static double rightJoystickY() {
+        return(rightJoystick.getY());
     }
 
     public static boolean rj2() {

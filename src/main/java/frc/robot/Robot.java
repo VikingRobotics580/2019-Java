@@ -13,15 +13,15 @@ package frc.robot;
 
 // General
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.Talon;
+//import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Timer;
 
 // Controls 
-import edu.wpi.first.wpilibj.Joystick;
+/*import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;*/
 
 // Sensors
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
@@ -40,73 +40,74 @@ public class Robot extends TimedRobot {
     public static OI oi;
 
     // Controls
-    public Joystick leftJoystick;
-    public Joystick rightJoystick;
+  //  public Joystick leftJoystick;
+  //  public Joystick rightJoystick;
 
     // Drive
-    private SpeedControllerGroup LeftDrive;
-    private SpeedControllerGroup RightDrive;
+    //private SpeedControllerGroup LeftDrive;
+    //private SpeedControllerGroup RightDrive;
 
     // Talons
-    private Talon MotorZero;
+    /*private Talon MotorZero;
     private Talon MotorOne;
     private Talon MotorTwo;
     private Talon MotorThree;
     private Talon Elevator;
     private Talon BallMotor;
-    private Talon BallShooter;
+    private Talon BallShooter;*/
 
     // General
     private Timer m_timer = new Timer();
-    private double left;
-    private double right;
-    private double position;
-    private boolean pressed;
-    private String status = "";
-
+    //private double left;
+    //private double right;
+    //private double position;
+   // private boolean pressed;
+    //private String status = "";
+    boolean pressed;
+    String status;
     // Sensors
     public static Drive drive = new Drive();
-    private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
-    M_I2C i2c = new M_I2C();
-    Arduino arduino = i2c.getArduino();
+    //private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
+    //M_I2C i2c = new M_I2C();
+    //Arduino arduino = i2c.getArduino();
 
-    Solenoid solenoid;
+    //Solenoid solenoid;
 
     // Initialization
     @Override
     public void robotInit() {
         // Talons:
-        MotorZero = new Talon(0);
-        MotorOne = new Talon(1);
-        MotorTwo = new Talon(2);
-        MotorThree = new Talon(3);
-        Elevator = new Talon(4);
-        BallMotor = new Talon(5);
-        BallShooter = new Talon(6);
+        //MotorZero = new Talon(0);
+        //MotorOne = new Talon(1);
+        //MotorTwo = new Talon(2);
+        //MotorThree = new Talon(3);
+        //Elevator = new Talon(4);
+        //BallMotor = new Talon(5);
+        //BallShooter = new Talon(6);
 
         // Drive: 
-        LeftDrive = new SpeedControllerGroup(MotorZero, MotorOne);
-        RightDrive = new SpeedControllerGroup(MotorTwo, MotorThree);
+        //LeftDrive = new SpeedControllerGroup(MotorZero, MotorOne);
+        //RightDrive = new SpeedControllerGroup(MotorTwo, MotorThree);
 
         // Controls:
 
-        leftJoystick = new Joystick(0);
-        rightJoystick = new Joystick(1);
-        solenoid = new Solenoid();
+        //leftJoystick = new Joystick(0);
+        //rightJoystick = new Joystick(1);
+        //solenoid = new Solenoid();
         pressed = false;
 
         // Sensors:
-        UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
-        camera.setResolution(320, 240);
+        ///UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+        //camera.setResolution(320, 240);
         SmartDashboard.putString("Robot", "initialized");
-        System.out.println(arduino.area);
-        System.out.println(arduino.x);
-        System.out.println(arduino.y);
+       // System.out.println(arduino.area);
+       // System.out.println(arduino.x);
+        //System.out.println(arduino.y);
 
     }
 
     // Vision Tester, "Is the position good to load or shoot ball?"
-    public void visionCheck(){
+    /*public void visionCheck(){
         //pixy values: (x = 0.70-0.85) (y = 0.45 - 0.65) (a = 0.04-0.07)
         arduino = i2c.getArduino();
         if (arduino.x != -1) {
@@ -142,13 +143,13 @@ public class Robot extends TimedRobot {
             SmartDashboard.putString("Pixy", "not set up");
             status = "bad";
         }
-    }  
+    }  */
   
     // Reset Gyro:
     public void resetGyro() {
-        gyro.reset();
+        //gyro.reset();
     }
-
+/*
     // Debug Connections:
     public void checkConnections() {
         if (i2c.getArduino().x != -1) {
@@ -159,11 +160,11 @@ public class Robot extends TimedRobot {
         } 
         System.out.println("Gyro: " + Math.abs(gyro.getAngle()));
         SmartDashboard.putData("Gyro", gyro);
-    }
+    }*/
 
     // Base Periodic Code for Teleop and Autonomous
     public void periodic() {
-        //If 2 is pressed, debug message
+       /* //If 2 is pressed, debug message
         if (leftJoystick.getRawButtonReleased(2) || rightJoystick.getRawButtonReleased(2)) {
             //checkConnections();
         }
@@ -202,7 +203,7 @@ public class Robot extends TimedRobot {
         } else if (rightJoystick.getRawButton(7)) {
             solenoid.habSolenoidBackBackward();
         }
-
+        */
     }
 
     // Teleop

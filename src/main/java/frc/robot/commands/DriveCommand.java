@@ -2,6 +2,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import static frc.robot.OI.*;
 
 public class DriveCommand extends Command {
 
@@ -9,23 +10,19 @@ public class DriveCommand extends Command {
 		requires(Robot.drive);
 	}
 
-	protected void initialize()
-	{
+	protected void init() {
 	}
 
-	protected void execute()
-	{
-		Robot.drive.Drive();;
+	protected void execute() {
+		Robot.drive.Drive(rightJjoystickX(),rightJoystickY());
 	}
 
 	@Override
-	protected boolean isFinished()
-	{
+	protected boolean isFinished() {
 		return false;
 	}
 
-	protected void end()
-	{
+	protected void end() {
 	}
 
 	protected void interrupted()

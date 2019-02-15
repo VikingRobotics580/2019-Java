@@ -1,8 +1,10 @@
 package frc.robot.subsystems;
-import frc.robot.OI;
+import static frc.robot.OI.*;
 import static frc.robot.RobotMap.*;
+import frc.robot.commands.DriveCommand;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -22,18 +24,18 @@ public class Drive extends Subsystem {
 
     private DifferentialDrive DriveTrain;
     private SpeedControllerGroup LeftDrive = new SpeedControllerGroup(MotorZero, MotorOne);
-    private SpeedControllerGroup RightDrive;
+    private SpeedControllerGroup RightDrive = new SpeedControllerGroup(MotorTwo, MotorThree);
 
     public void initDefaultCommand() {
-
+        setDefaultCommand(new DriveCommand());
     }
 
-    public void Drive() {
+    public void Drive(double jx, double jy) {
         LeftDrive = new SpeedControllerGroup(MotorZero, MotorOne);
         RightDrive = new SpeedControllerGroup(MotorTwo, MotorThree);
         DriveTrain = new DifferentialDrive(LeftDrive, RightDrive);
-        left = (-OI.rightJoystickY()) - (OI.rightJjoystickX());
-        right = (-OI.rightJoystickY()) + (OI.rightJjoystickX());
+        left = (-jy) - (jx);
+        right = (-jy) + (jx);
         position = java.lang.Math.abs(left);
 
         if (position < java.lang.Math.abs(right)) {
@@ -49,7 +51,7 @@ public class Drive extends Subsystem {
 
     // Rotate robot 90 deg to the left
     public void rotate90Left() {
-        if (OI.lj3()) {
+        if (lj3()) {
             double to = gyro.getAngle() + 90;
             if (gyro.isConnected()) {
                 while (gyro.getAngle() < to) {
@@ -61,7 +63,7 @@ public class Drive extends Subsystem {
 
     // Rotate robot 90 deg to the right
     public void rotate90Right() {
-        if (OI.lj4()) {
+        if (lj4()) {
             double to = gyro.getAngle() - 90;
             if (gyro.isConnected()) {
                 while (gyro.getAngle() < to) {
@@ -73,7 +75,7 @@ public class Drive extends Subsystem {
 
     // Go back to 0
     public void goto0() {
-        if (OI.lj5()) {
+        if (lj5()) {
             if (gyro.isConnected()) {
                 if (gyro.getAngle() > 180) {
                     while (gyro.getAngle() > -3 && gyro.getAngle() < 3) {
@@ -90,7 +92,7 @@ public class Drive extends Subsystem {
 
     // Go to 180 degree position
     public void goto180() {
-        if (OI.lj6()) {
+        if (lj6()) {
             if (gyro.isConnected()) {
                 while (gyro.getAngle() > 179 && gyro.getAngle() < 181) {
                     DriveTrain.tankDrive(-1,-1);
