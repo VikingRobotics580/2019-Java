@@ -5,15 +5,28 @@
 
 package frc.robot.subsystems;
 
+import frc.robot.Robot;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.I2C.Port;
+import edu.wpi.first.wpilibj.smartdashboard.*;
+import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.commands.ArduinoCommand;
 
-public class M_I2C {
+public class M_I2C extends Subsystem {
 
-	private static I2C Wire = new I2C(Port.kOnboard, 4);//uses the i2c port on the RoboRIO
+	private static I2C Wire;//uses the i2c port on the RoboRIO
 														//uses address 4, must match arduino
 	private static final int MAX_BYTES = 32;
+
+	private static Arduino arduino;
+
+	String status = "";
 	
+	public M_I2C() {
+		Wire = new I2C(Port.kOnboard, 4);
+		arduino = new Arduino();
+	}
+
 	public void write(String input){//writes to the arduino 
 			char[] CharArray = input.toCharArray();//creates a char array from the input string
 			byte[] WriteData = new byte[CharArray.length];//creates a byte array from the char array
@@ -27,19 +40,18 @@ public class M_I2C {
 	public Arduino getArduino() {//reads the data from arduino and saves it
 		String info[] = read().split("\\|");//everytime a "|" is used it splits the data,
 											//and adds it as a new element in the array
-		Arduino sensorData = new Arduino();  //creates a new packet to hold the data 
 		if(info[0].equals("none") || info[0].equals("")){//checks to make sure there is data 
-			sensorData.x = -1;//the x val will never be -1 so we can text later in code to make sure 
+			arduino.x = -1;//the x val will never be -1 so we can text later in code to make sure 
 					   //there is data
-			sensorData.y = -1;
-			sensorData.area = -1;
+			arduino.y = -1;
+			arduino.area = -1;
 		}else if(info.length == 4){//if there is an x, y, and area value the length equals 3
-			sensorData.x = Double.parseDouble(info[0]);//set x
-			sensorData.y = Double.parseDouble(info[1]);//set y
-			sensorData.area = Double.parseDouble(info[2]);//set area
-			sensorData.distance = Double.parseDouble(info[3]);
+			arduino.x = Double.parseDouble(info[0]);//set x
+			arduino.y = Double.parseDouble(info[1]);//set y
+			arduino.area = Double.parseDouble(info[2]);//set area
+			arduino.distance = Double.parseDouble(info[3]);
 		}
-		return sensorData;
+		return arduino;
 	}
 
 	public double getDistance() {
@@ -55,4 +67,47 @@ public class M_I2C {
 		return (String) output.subSequence(0, pt < 0 ? 0 : pt);
 	}
 
+	// Vision Tester, "Is the position good to load or shoot ball?"
+	public void visionProcess() {
+		if (true/*(Robot.drive.gyro.isConnected()*/){ 
+			//pixy values: (x = 0.70-0.85) (y = 0.45 - 0.65) (a = 0.04-0.07)
+			arduino = getArduino();
+			if (arduino.x != -1) {
+				SmartDashboard.putString("Pixy", "set up");
+				status = "good";
+				if((arduino.x >= 0.70 && arduino.x <= 0.85) && (arduino.y >= 0.45 && arduino.y <= 0.65) && (arduino.area >= 0.4 && arduino.area <= 0.7) && (arduino.distance > 8)) {
+					System.out.println("Go for it");
+				}
+			}
+			if (!status.equals("bad")) {
+				System.out.println(arduino.area);
+				System.out.println(arduino.x);
+				System.out.println(arduino.y);
+				SmartDashboard.putString("Pixy", "not set up");
+				status = "bad";
+			}
+		} else { // If there is no ultrasoni
+			//pixy values: (x = 0.70-0.85) (y = 0.45 - 0.65) (a = 0.04-0.07)
+			arduino = getArduino();
+			if(arduino.x != -1){//if data is exist
+				SmartDashboard.putString("Pixy", "set up");
+				status = "good";
+				if((arduino.x >= 0.70 && arduino.x <= 0.85) && (arduino.y >= 0.45 && arduino.y <= 0.65) && (arduino.area >= 0.4 && arduino.area <= 0.7)) {
+					System.out.println("Go for it");
+				}
+			}
+			if (!status.equals("bad")) {
+				System.out.println(arduino.area);
+				System.out.println(arduino.x);
+				System.out.println(arduino.y);
+				SmartDashboard.putString("Pixy", "not set up");
+				status = "bad";
+			}
+		}  
+	}
+
+	public void initDefaultCommand() {
+        setDefaultCommand(new ArduinoCommand());
+	}
+	
 }

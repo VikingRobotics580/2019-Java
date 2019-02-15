@@ -4,10 +4,10 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import static frc.robot.OI.*;
 
-public class DriveCommand extends Command {
+public class SolenoidCommand extends Command {
 
-	public DriveCommand() {
-		requires(Robot.drive);
+	public SolenoidCommand() {
+		requires(Robot.solenoid);
 	}
 
 	@Override
@@ -16,7 +16,7 @@ public class DriveCommand extends Command {
 
 	@Override
 	protected void execute() {
-		Robot.drive.Driver(rightJoystick.getX(),rightJoystick.getX());
+		Robot.solenoid.runSolenoid();
 	}
 
 	@Override

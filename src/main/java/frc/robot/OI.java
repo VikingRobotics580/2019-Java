@@ -8,12 +8,13 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.buttons.Button;
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 public class OI {
 
-    private static Joystick leftJoystick = new Joystick(0);
+    public static Joystick leftJoystick = new Joystick(0);
+    public static Joystick rightJoystick = new Joystick(1);
+
+    /*private static Joystick leftJoystick = new Joystick(0);
     private static Joystick rightJoystick = new Joystick(1);
 
     public static boolean hatchJoystickForward() {
@@ -42,7 +43,7 @@ public class OI {
 
     public static double rightJjoystickX() {
         return(rightJoystick.getX());
-    }
+    } 
 
     public static double rightJoystickY() {
         return(rightJoystick.getY());
@@ -86,7 +87,7 @@ public class OI {
 
     public static boolean lj6() {
         return(leftJoystick.getRawButtonReleased(6));
-    }
+    }*/
 
 }
 

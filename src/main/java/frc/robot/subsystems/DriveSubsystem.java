@@ -1,7 +1,11 @@
 package frc.robot.subsystems;
+
+import frc.robot.Robot;
+
 import static frc.robot.OI.*;
 import static frc.robot.RobotMap.*;
 import frc.robot.commands.DriveCommand;
+
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.RobotDrive;
@@ -10,30 +14,36 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 
-public class Drive extends Subsystem {
+public class DriveSubsystem extends Subsystem {
 
     ADXRS450_Gyro gyro;
     double left;
     double right;
     double position;
 
-    private Talon MotorZero = new Talon(DRIVE_ZERO);
-    private Talon MotorOne = new Talon(DRIVE_ONE);
-    private Talon MotorTwo = new Talon(DRIVE_TWO);
-    private Talon MotorThree = new Talon(DRIVE_THREE);
+    private Talon MotorZero;
+    private Talon MotorOne;
+    private Talon MotorTwo;
+    private Talon MotorThree;
 
     private DifferentialDrive DriveTrain;
-    private SpeedControllerGroup LeftDrive = new SpeedControllerGroup(MotorZero, MotorOne);
-    private SpeedControllerGroup RightDrive = new SpeedControllerGroup(MotorTwo, MotorThree);
+    private SpeedControllerGroup LeftDrive;
+    private SpeedControllerGroup RightDrive;
+    
 
-    public void initDefaultCommand() {
-        setDefaultCommand(new DriveCommand());
+    public DriveSubsystem() {
+        MotorZero = new Talon(DRIVE_ZERO);
+        MotorOne = new Talon(DRIVE_ONE);
+        MotorTwo = new Talon(DRIVE_TWO);
+        MotorThree = new Talon(DRIVE_THREE);
+
+        LeftDrive = new SpeedControllerGroup(MotorZero,MotorOne);
+        RightDrive = new SpeedControllerGroup(MotorTwo,MotorThree);
+
+        DriveTrain = new DifferentialDrive(LeftDrive,RightDrive);
     }
 
-    public void Drive(double jx, double jy) {
-        LeftDrive = new SpeedControllerGroup(MotorZero, MotorOne);
-        RightDrive = new SpeedControllerGroup(MotorTwo, MotorThree);
-        DriveTrain = new DifferentialDrive(LeftDrive, RightDrive);
+    public void Driver(double jx, double jy) {
         left = (-jy) - (jx);
         right = (-jy) + (jx);
         position = java.lang.Math.abs(left);
@@ -49,6 +59,13 @@ public class Drive extends Subsystem {
         DriveTrain.tankDrive(left, right);
     }
 
+    public void initDefaultCommand() {
+        setDefaultCommand(new DriveCommand());
+    }
+
+}
+
+    /*
     // Rotate robot 90 deg to the left
     public void rotate90Left() {
         if (lj3()) {
@@ -100,4 +117,4 @@ public class Drive extends Subsystem {
             }
         }
     }
-}
+    */
