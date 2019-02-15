@@ -6,7 +6,7 @@
 /*----------------------------------------------------------------------------*/
 
 // VikingRobotics 2019 FRC Robotics
-// Programming Team: Bhada Yun, Finn Cawley, Kate Hirshberg, Gavin Sanchez
+// Programming Team: Bhada Yun, Finn Cawley, Kate Hirshberg
 // Robot base program
 
 //boat
@@ -207,7 +207,7 @@ public class Robot extends TimedRobot {
 
         //If 5 is pressed, rotate 90 to left
         if (joystick.getRawButton(5) && !pressed) {
-            rotate90Left();
+            //rotate90Left();
             pressed = true;
         } else if (!joystick.getRawButton(5)) {
             pressed = false;
@@ -215,7 +215,7 @@ public class Robot extends TimedRobot {
 
         //If 6 is pressed, rotate 90 to right
         if (joystick.getRawButton(6) && !pressed) {
-            rotate90Right();
+            //rotate90Right();
             pressed = true;
         } else if (!joystick.getRawButton(6)) {
             pressed = false;
@@ -223,7 +223,7 @@ public class Robot extends TimedRobot {
 
         //If 3 is pressed, go back to 0
         if (joystick.getRawButton(3) && !pressed) {
-            goto0();
+            //goto0();
             pressed = true;
         } else if (!joystick.getRawButton(3)) {
             pressed = false;
@@ -231,7 +231,7 @@ public class Robot extends TimedRobot {
 
         //If 4 is pressed, go to 180
         if (joystick.getRawButton(4) && !pressed) {
-            goto180();
+            //goto180();
             pressed = true;
         } else if (!joystick.getRawButton(4)) {
             pressed = false;
@@ -243,13 +243,13 @@ public class Robot extends TimedRobot {
         } else if (joystick.getRawButton(11)) {
             solenoid.hatchSolenoidBackward();
         } else if (joystick.getRawButton(10)) {
-            solenoid.habSolenoidFrontForward();
+            //solenoid.habSolenoidFrontForward();
         } else if (joystick.getRawButton(9)) {
-            solenoid.habSolenoidFrontBackward();
+            //solenoid.habSolenoidFrontBackward();
         } else if (joystick.getRawButton(8)) {
-            solenoid.habSolenoidBackForward();
+            //solenoid.habSolenoidBackForward();
         } else if (joystick.getRawButton(7)) {
-            solenoid.habSolenoidBackBackward();
+            //solenoid.habSolenoidBackBackward();
         }
 
         drive();
