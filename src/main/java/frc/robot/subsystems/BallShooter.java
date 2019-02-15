@@ -1,14 +1,20 @@
 // VikingRobotics 2019 FRC Robotics
 // Programming Team: Bhada Yun, Finn Cawley, Kate Hirshberg, Gavin Sanchez
 // Ball Shooter code
+// Lead: Bhada Yun & Finn Cawley
 
-package frc.robot;
+package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Timer;
 
-public class BallShooter {
+public class BallShooter extends Subsystem {
+
+    public void initDefaultCommand() {
+    }
 
     private Talon BallMotor;
     private Joystick joystick;

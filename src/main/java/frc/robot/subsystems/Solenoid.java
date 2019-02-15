@@ -1,28 +1,24 @@
 // VikingRobotics 2019 FRC Robotics
 // Programming Team: Bhada Yun, Finn Cawley, Kate Hirshberg, Gavin Sanchez
 // Solenoid Code
+// Lead: Finn Cawley & Bhada Yun
 
-package frc.robot;
-
-import edu.wpi.first.wpilibj.Joystick;
+package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.OI;
+import static frc.robot.RobotMap.*;
 
-public class Solenoid {
+public class Solenoid extends Subsystem {
+    DoubleSolenoid hatch = new DoubleSolenoid(HATCH_FORWARD,HATCH_REVERSE);
+    DoubleSolenoid habFront = new DoubleSolenoid(HAB_FRONT_FORWARD,HAB_FRONT_REVERSE);
+    DoubleSolenoid habBack = new DoubleSolenoid(HAB_BACK_FORWARD,HAB_BACK_REVERSE);
 
-    DoubleSolenoid hatch;
-    DoubleSolenoid habFront;
-    DoubleSolenoid habBack;
-    Joystick joystick;
-
-    public Solenoid(Joystick joystick) {
-        hatch = new DoubleSolenoid(0, 1);	
-        habFront = new DoubleSolenoid(2, 3);	
-        habBack = new DoubleSolenoid(4, 5);	
-        this.joystick = joystick;
+    public void initDefaultCommand() {
     }
 
     public void hatchSolenoidForward() {
-        if (joystick.getRawButton(12) == true && joystick.getRawButton(11) != true) {
+        if (OI.hatchJoystickForward()) {
             hatch.set(DoubleSolenoid.Value.kForward); 
         } else {
             hatch.set(DoubleSolenoid.Value.kOff); 
@@ -30,7 +26,7 @@ public class Solenoid {
     }
 
     public void hatchSolenoidBackward() {
-        if (joystick.getRawButton(11) == true && joystick.getRawButton(12) != true) {
+        if (OI.hatchJoystickRelease()) {
             hatch.set(DoubleSolenoid.Value.kReverse); 
         } else {
             hatch.set(DoubleSolenoid.Value.kOff); 
@@ -38,7 +34,7 @@ public class Solenoid {
     }
 
     public void habSolenoidFrontForward() {
-        if(joystick.getRawButton(10) == true && joystick.getRawButton(9) != true) {
+        if (OI.habFrontJoystickForward()) {
             habFront.set(DoubleSolenoid.Value.kForward); 
         } else {
             habFront.set(DoubleSolenoid.Value.kOff); 
@@ -46,7 +42,7 @@ public class Solenoid {
     }
 
     public void habSolenoidFrontBackward() {
-        if(joystick.getRawButton(9) == true && joystick.getRawButton(10) != true) {
+        if(OI.habFrontJoystickRelease()) {
             habFront.set(DoubleSolenoid.Value.kReverse);
         } else {
             habFront.set(DoubleSolenoid.Value.kOff); 
@@ -54,7 +50,7 @@ public class Solenoid {
     }
 
     public void habSolenoidBackForward() {
-        if(joystick.getRawButton(8) == true && joystick.getRawButton(7) != true) {
+        if(OI.habBackJoystickForward()) {
             habBack.set(DoubleSolenoid.Value.kForward); 
         } else {
             habFront.set(DoubleSolenoid.Value.kOff); 
@@ -62,18 +58,13 @@ public class Solenoid {
     }
 
     public void habSolenoidBackBackward() {
-        if(joystick.getRawButton(7) == true && joystick.getRawButton(8) != true) {
+        if(OI.habBackJoystickRelease()) {
             habBack.set(DoubleSolenoid.Value.kReverse); 
         } else {
             habFront.set(DoubleSolenoid.Value.kOff); 
         }
+
     }
 
 }
 
-/*
-Repressed Test Code: 
-    All compressor instantiations
-    compressor.start();
-    compressor.setClosedLoopControl(true);
-*/
