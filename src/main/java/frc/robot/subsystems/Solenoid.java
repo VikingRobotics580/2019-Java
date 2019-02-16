@@ -21,9 +21,13 @@ public class Solenoid extends Subsystem {
 
     public Solenoid() {
         hatch = new DoubleSolenoid(0, 1);	
-        habFront = new DoubleSolenoid(2, 3);	
-        habBack = new DoubleSolenoid(4, 5);	
+        //habFront = new DoubleSolenoid(2, 3);	
+        //habBack = new DoubleSolenoid(4, 5);	
         joystick = OI.rightJoystick;
+    }
+
+    public boolean isWorking() {
+        return true;
     }
 
     public void runSolenoid() {
@@ -43,30 +47,30 @@ public class Solenoid extends Subsystem {
     
 
         if(joystick.getRawButton(10) == true && joystick.getRawButton(9) != true) {
-            habFront.set(DoubleSolenoid.Value.kForward); 
+            //habFront.set(DoubleSolenoid.Value.kForward); 
         } else {
-            habFront.set(DoubleSolenoid.Value.kOff); 
+            //habFront.set(DoubleSolenoid.Value.kOff); 
         }
     
 
         if(joystick.getRawButton(9) == true && joystick.getRawButton(10) != true) {
-            habFront.set(DoubleSolenoid.Value.kReverse);
+            //habFront.set(DoubleSolenoid.Value.kReverse);
         } else {
-            habFront.set(DoubleSolenoid.Value.kOff); 
+            //habFront.set(DoubleSolenoid.Value.kOff); 
         }
     
 
         if(joystick.getRawButton(8) == true && joystick.getRawButton(7) != true) {
-            habBack.set(DoubleSolenoid.Value.kForward); 
+            //habBack.set(DoubleSolenoid.Value.kForward); 
         } else {
-            habFront.set(DoubleSolenoid.Value.kOff); 
+            //habFront.set(DoubleSolenoid.Value.kOff); 
         }
     
 
         if(joystick.getRawButton(7) == true && joystick.getRawButton(8) != true) {
-            habBack.set(DoubleSolenoid.Value.kReverse); 
+            //habBack.set(DoubleSolenoid.Value.kReverse); 
         } else {
-            habFront.set(DoubleSolenoid.Value.kOff); 
+            //habFront.set(DoubleSolenoid.Value.kOff); 
         }
     
     }

@@ -16,7 +16,9 @@ public class SolenoidCommand extends Command {
 
 	@Override
 	protected void execute() {
-		Robot.solenoid.runSolenoid();
+		//if (Robot.solenoid.isWorking()) {
+			Robot.solenoid.runSolenoid();
+		//}
 	}
 
 	@Override

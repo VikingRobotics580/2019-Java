@@ -7,8 +7,10 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.commands.ElevatorCommand;
 
-public class Elevator {
+public class Elevator extends Subsystem {
 
     private Talon Elevator;
     private Joystick joystick;
@@ -28,6 +30,10 @@ public class Elevator {
             Elevator.set(0.0); //Nothing while nothing is pressed
         }
 
+    }
+
+    public void initDefaultCommand() {
+        setDefaultCommand(new ElevatorCommand());
     }
 
 }

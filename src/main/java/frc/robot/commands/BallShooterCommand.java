@@ -4,10 +4,10 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import static frc.robot.OI.*;
 
-public class ArduinoCommand extends Command {
+public class BallShooterCommand extends Command {
 
-	public ArduinoCommand() {
-		//requires(Robot.m_i2c);
+	public BallShooterCommand() {
+		//requires(Robot.ballShooter);
 	}
 
 	@Override
@@ -16,8 +16,8 @@ public class ArduinoCommand extends Command {
 
 	@Override
 	protected void execute() {
-        //Robot.m_i2c.visionProcess();
-    }
+		//Robot.ballShooter.BallMotor();;
+	}
 
 	@Override
 	protected boolean isFinished() {

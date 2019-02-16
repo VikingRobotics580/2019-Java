@@ -4,8 +4,10 @@ import frc.robot.Robot;
 
 import static frc.robot.OI.*;
 import static frc.robot.RobotMap.*;
-import frc.robot.commands.DriveCommand;
 
+//import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
+import frc.robot.commands.DriveCommand;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.RobotDrive;
@@ -20,7 +22,6 @@ public class DriveSubsystem extends Subsystem {
     double left;
     double right;
     double position;
-
     private Talon MotorZero;
     private Talon MotorOne;
     private Talon MotorTwo;
@@ -29,13 +30,15 @@ public class DriveSubsystem extends Subsystem {
     private DifferentialDrive DriveTrain;
     private SpeedControllerGroup LeftDrive;
     private SpeedControllerGroup RightDrive;
-    
+
+    private double jx;
+    private double jy;
 
     public DriveSubsystem() {
-        MotorZero = new Talon(DRIVE_ZERO);
-        MotorOne = new Talon(DRIVE_ONE);
-        MotorTwo = new Talon(DRIVE_TWO);
-        MotorThree = new Talon(DRIVE_THREE);
+        MotorZero = new Talon(0);
+        MotorOne = new Talon(1);
+        MotorTwo = new Talon(7);
+        MotorThree = new Talon(8);
 
         LeftDrive = new SpeedControllerGroup(MotorZero,MotorOne);
         RightDrive = new SpeedControllerGroup(MotorTwo,MotorThree);
@@ -43,7 +46,9 @@ public class DriveSubsystem extends Subsystem {
         DriveTrain = new DifferentialDrive(LeftDrive,RightDrive);
     }
 
-    public void Driver(double jx, double jy) {
+    public void Driver() {
+        jx = rightJoystick.getX();
+        jy = rightJoystick.getY();
         left = (-jy) - (jx);
         right = (-jy) + (jx);
         position = java.lang.Math.abs(left);

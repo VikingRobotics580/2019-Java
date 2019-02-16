@@ -26,10 +26,12 @@ public class Robot extends TimedRobot {
     boolean pressed;
     String status;
     // Sensors
-    public static DriveSubsystem drive = new DriveSubsystem();
-    public static M_I2C m_i2c = new M_I2C();
-    public static Solenoid solenoid = new Solenoid();
-    SendableChooser<Command> m_chooser = new SendableChooser<>();
+    public static final DriveSubsystem drive = new DriveSubsystem();
+    //public static M_I2C m_i2c = new M_I2C();
+    public static final Solenoid solenoid = new Solenoid();
+    //public static BallShooter ballShooter = new BallShooter();
+    //public static Elevator elevator = new Elevator();
+    SendableChooser chooser;
     //private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
     //M_I2C i2c = new M_I2C();
     //Arduino arduino = i2c.getArduino();
@@ -39,12 +41,13 @@ public class Robot extends TimedRobot {
     @Override
     public void robotInit() {
         // Controls:
-        //m_chooser.setDefaultOption("Drive", new DriveCommand());
+        chooser = new SendableChooser();
+        //drv.setDefaultOption("Drive", new DriveCommand());
+        //sol.setDefaultOption("Solenoid", new SolenoidCommand());
         //m_chooser.setDefaultOption("M_I2C", new ArduinoCommand());
-        SmartDashboard.putData("Chooser",m_chooser);
+        SmartDashboard.putData("Chooser",chooser);
         //leftJoystick = new Joystick(0);
         //rightJoystick = new Joystick(1);
-        //solenoid = new Solenoid();
         pressed = false;
 
         // Sensors:

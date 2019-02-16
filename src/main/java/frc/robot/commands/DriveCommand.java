@@ -16,7 +16,7 @@ public class DriveCommand extends Command {
 
 	@Override
 	protected void execute() {
-		Robot.drive.Driver(rightJoystick.getX(),rightJoystick.getX());
+		Robot.drive.Driver();
 	}
 
 	@Override
