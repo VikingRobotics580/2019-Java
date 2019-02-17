@@ -10,6 +10,7 @@ import frc.robot.OI.*;
 import frc.robot.commands.SolenoidCommand;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.Joystick;
 
 public class Solenoid extends Subsystem {
@@ -32,19 +33,17 @@ public class Solenoid extends Subsystem {
 
     public void runSolenoid() {
 
-        if (joystick.getRawButton(12) == true && joystick.getRawButton(11) != true) {
+        if (joystick.getRawButtonPressed(12) == true && joystick.getRawButtonPressed(11) != true) {
             hatch.set(DoubleSolenoid.Value.kForward); 
         } else {
             hatch.set(DoubleSolenoid.Value.kOff); 
         }
     
-
-        if (joystick.getRawButton(11) == true && joystick.getRawButton(12) != true) {
+        if (joystick.getRawButtonPressed(11) == true && joystick.getRawButtonPressed(12) != true) {
             hatch.set(DoubleSolenoid.Value.kReverse); 
         } else {
             hatch.set(DoubleSolenoid.Value.kOff); 
         }
-    
 
         if(joystick.getRawButton(10) == true && joystick.getRawButton(9) != true) {
             //habFront.set(DoubleSolenoid.Value.kForward); 

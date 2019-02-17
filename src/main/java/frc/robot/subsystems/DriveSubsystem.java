@@ -44,6 +44,7 @@ public class DriveSubsystem extends Subsystem {
         RightDrive = new SpeedControllerGroup(MotorTwo,MotorThree);
 
         DriveTrain = new DifferentialDrive(LeftDrive,RightDrive);
+        DriveTrain.setSafetyEnabled(false);
     }
 
     public void Driver() {

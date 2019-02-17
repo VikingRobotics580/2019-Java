@@ -51,13 +51,12 @@ public class Robot extends TimedRobot {
         pressed = false;
 
         // Sensors:
-        ///UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
-        //camera.setResolution(320, 240);
+        UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+        camera.setResolution(320, 240);
         SmartDashboard.putString("Robot", "initialized");
        // System.out.println(arduino.area);
        // System.out.println(arduino.x);
         //System.out.println(arduino.y);
-
     }
   
     // Reset Gyro:
@@ -74,7 +73,6 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopPeriodic() {
         periodic();
-
     }
 
     // Autonomous
