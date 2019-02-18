@@ -27,8 +27,9 @@ public class Robot extends TimedRobot {
     String status;
     // Sensors
     public static final DriveSubsystem drive = new DriveSubsystem();
-    //public static M_I2C m_i2c = new M_I2C();
-    public static final Solenoid solenoid = new Solenoid();
+    public static final M_I2C m_i2c = new M_I2C();
+    public Arduino test;
+    //public static final Solenoid solenoid = new Solenoid();
     //public static BallShooter ballShooter = new BallShooter();
     //public static Elevator elevator = new Elevator();
     SendableChooser chooser;
@@ -40,6 +41,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void robotInit() {
+        test = new Arduino();
         // Controls:
         chooser = new SendableChooser();
         //drv.setDefaultOption("Drive", new DriveCommand());
@@ -51,8 +53,8 @@ public class Robot extends TimedRobot {
         pressed = false;
 
         // Sensors:
-        UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
-        camera.setResolution(320, 240);
+        //UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+        //camera.setResolution(320, 240);
         SmartDashboard.putString("Robot", "initialized");
        // System.out.println(arduino.area);
        // System.out.println(arduino.x);

@@ -7,7 +7,7 @@ import static frc.robot.OI.*;
 public class SolenoidCommand extends Command {
 
 	public SolenoidCommand() {
-		requires(Robot.solenoid);
+		//requires(Robot.solenoid);
 	}
 
 	@Override
@@ -17,7 +17,7 @@ public class SolenoidCommand extends Command {
 	@Override
 	protected void execute() {
 		//if (Robot.solenoid.isWorking()) {
-		Robot.solenoid.runSolenoid();
+		//Robot.solenoid.runSolenoid();
 		//}
 	}
 

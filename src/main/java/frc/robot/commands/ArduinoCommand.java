@@ -7,7 +7,7 @@ import static frc.robot.OI.*;
 public class ArduinoCommand extends Command {
 
 	public ArduinoCommand() {
-		//requires(Robot.m_i2c);
+		requires(Robot.m_i2c);
 	}
 
 	@Override
@@ -16,7 +16,7 @@ public class ArduinoCommand extends Command {
 
 	@Override
 	protected void execute() {
-        //Robot.m_i2c.visionProcess();
+        Robot.m_i2c.getDistance();
     }
 
 	@Override
