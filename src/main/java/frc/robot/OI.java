@@ -14,80 +14,26 @@ public class OI {
     //public static Joystick leftJoystick = new Joystick(0);
     public static Joystick rightJoystick = new Joystick(0);
 
-    /*private static Joystick leftJoystick = new Joystick(0);
-    private static Joystick rightJoystick = new Joystick(1);
-
-    public static boolean hatchJoystickForward() {
-        return(rightJoystick.getRawButtonPressed(12) && !rightJoystick.getRawButtonPressed(11));
-    }    
-
-    public static boolean hatchJoystickRelease() {
-        return(rightJoystick.getRawButtonPressed(11) && !rightJoystick.getRawButtonPressed(12));
-    }    
-
-    public static boolean habFrontJoystickForward() {
-        return(rightJoystick.getRawButtonPressed(10) && !rightJoystick.getRawButtonPressed(9));
-    }    
-
-    public static boolean habFrontJoystickRelease() {
-        return(rightJoystick.getRawButtonPressed(9) && !rightJoystick.getRawButtonPressed(10));
-    }    
-
-    public static boolean habBackJoystickForward() {
-        return(rightJoystick.getRawButtonPressed(8) && !rightJoystick.getRawButtonPressed(7));
-    }    
-
-    public static boolean habBackJoystickRelease() {
-        return(rightJoystick.getRawButtonPressed(7) && !rightJoystick.getRawButtonPressed(8));
-    }    
-
-    public static double rightJjoystickX() {
-        return(rightJoystick.getX());
-    } 
-
-    public static double rightJoystickY() {
-        return(rightJoystick.getY());
+    public static int gyroDrive() {
+        if (rightJoystick.getRawButtonPressed(4) || rightJoystick.getRawButtonPressed(5) ||
+        rightJoystick.getRawButtonPressed(6) || rightJoystick.getRawButtonPressed(7) ||
+        rightJoystick.getRawButtonPressed(2)) {
+            if (rightJoystick.getRawButtonPressed(4)) {
+                return 4;
+            } else if (rightJoystick.getRawButtonPressed(5)) {
+                return 5;
+            } else if (rightJoystick.getRawButtonPressed(6)) {
+                return 6;
+            } else if (rightJoystick.getRawButtonPressed(7)) {
+                return 7;
+            } else if (rightJoystick.getRawButtonPressed(2)) {
+                return 2;
+            } else {
+                return -1;
+            }
+        } else {
+            return -1;
+        }
     }
-
-    public static boolean rj2() {
-        return(rightJoystick.getRawButtonReleased(2));
-    }
-
-    public static boolean rj3() {
-        return(rightJoystick.getRawButtonReleased(3));
-    }
-
-    public static boolean rj4() {
-        return(rightJoystick.getRawButtonReleased(4));
-    }
-
-    public static boolean rj5() {
-        return(rightJoystick.getRawButtonReleased(5));
-    }
-
-    public static boolean rj6() {
-        return(rightJoystick.getRawButtonReleased(6));
-    }
-
-    public static boolean lj2() {
-        return(leftJoystick.getRawButtonReleased(2));
-    }
-
-    public static boolean lj3() {
-        return(leftJoystick.getRawButtonReleased(3));
-    }
-
-    public static boolean lj4() {
-        return(leftJoystick.getRawButtonReleased(4));
-    }
-
-    public static boolean lj5() {
-        return(leftJoystick.getRawButtonReleased(5));
-    }
-
-    public static boolean lj6() {
-        return(leftJoystick.getRawButtonReleased(6));
-    }*/
-
 }
 

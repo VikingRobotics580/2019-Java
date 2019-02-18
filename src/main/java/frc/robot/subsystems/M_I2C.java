@@ -37,21 +37,24 @@ public class M_I2C extends Subsystem {
 			arduino.x = -1;//the x val will never be -1 so we can text later in code to make sure 
 			arduino.y = -1;
 			arduino.area = -1;
-		}else if(info.length == 3){//if there is an x, y, and area value the length equals 3
+			if (info.length >= 2) {
+				arduino.distance = Double.parseDouble(info[1]);
+			}
+		}else if(info.length >= 3){//if there is an x, y, and area value the length equals 3
 			arduino.x = Double.parseDouble(info[0]);//set x
 			arduino.y = Double.parseDouble(info[1]);//set y
 			arduino.area = Double.parseDouble(info[2]);//set area
+			arduino.distance = Double.parseDouble(info[3]);
 		}
 		return arduino;
 	}
 
-	public void getDistance() {
+	public void getData() {
 		Arduino receive = getArduino();
 		//System.out.println(receive.distance);
 		if (OI.rightJoystick.getRawButtonPressed(12)) {
-			System.out.println(receive.x);
-			System.out.println(receive.y);
-			System.out.println(receive.area);
+			System.out.println("Pixy:" + receive.x + " | " + receive.y + " | " + receive.area);
+			System.out.println("Distance: " + receive.distance);
 		}
 	}
 

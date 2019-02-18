@@ -63,64 +63,67 @@ public class DriveSubsystem extends Subsystem {
         right = right/position;
         }
         DriveTrain.tankDrive(left, right);
+        System.out.println(left + ", " + right);
     }
 
     public void initDefaultCommand() {
         setDefaultCommand(new DriveCommand());
     }
 
-}
-
-    /*
     // Rotate robot 90 deg to the left
     public void rotate90Left() {
-        if (lj3()) {
-            double to = gyro.getAngle() + 90;
-            if (gyro.isConnected()) {
-                while (gyro.getAngle() < to) {
-                    DriveTrain.tankDrive(1,1);
-                }
+        double to = gyro.getAngle() - 90;
+        if (gyro.isConnected()) {
+            while (gyro.getAngle() < to) {
+                DriveTrain.tankDrive(-1,-1);
             }
+        } else {
+            System.out.println("Gyro not connected!");
         }
     }
 
     // Rotate robot 90 deg to the right
     public void rotate90Right() {
-        if (lj4()) {
-            double to = gyro.getAngle() - 90;
-            if (gyro.isConnected()) {
-                while (gyro.getAngle() < to) {
-                    DriveTrain.tankDrive(-1,-1);
-                }
+        double to = gyro.getAngle() + 90;
+        if (gyro.isConnected()) {
+            while (gyro.getAngle() < to) {
+                DriveTrain.tankDrive(1,1);
             }
+        } else {
+            System.out.println("Gyro not connected!");
         }
     }
 
     // Go back to 0
     public void goto0() {
-        if (lj5()) {
-            if (gyro.isConnected()) {
-                if (gyro.getAngle() > 180) {
-                    while (gyro.getAngle() > -3 && gyro.getAngle() < 3) {
-                        DriveTrain.tankDrive(1,1);
-                    }
-                } else {
-                    while (gyro.getAngle() > -3 && gyro.getAngle() < 3) {
-                        DriveTrain.tankDrive(-1,-1);
-                    }
+        if (gyro.isConnected()) {
+            if (gyro.getAngle() > 180) {
+                while (gyro.getAngle() > -3 && gyro.getAngle() < 3) {
+                    DriveTrain.tankDrive(-1,-1);
+                }
+            } else {
+                while (gyro.getAngle() > -3 && gyro.getAngle() < 3) {
+                    DriveTrain.tankDrive(1,1);
                 }
             }
+        } else {
+            System.out.println("Gyro not connected!");
         }
     }
 
     // Go to 180 degree position
     public void goto180() {
-        if (lj6()) {
-            if (gyro.isConnected()) {
-                while (gyro.getAngle() > 179 && gyro.getAngle() < 181) {
-                    DriveTrain.tankDrive(-1,-1);
-                }
+        if (gyro.isConnected()) {
+            while (gyro.getAngle() > 179 && gyro.getAngle() < 181) {
+                DriveTrain.tankDrive(-1,-1);
             }
+        } else {
+            System.out.println("Gyro not connected!");
         }
     }
-    */
+
+    public void printAngle() {
+        System.out.println("Gyro: " + gyro.getAngle());
+    }
+
+}

@@ -7,7 +7,6 @@ public class RobotMap {
     public static final int RIGHT_JOYSTICK = 1;
     
     // Solenoid
-
     public static final int HATCH_FORWARD = 0;
     public static final int HATCH_REVERSE = 1;
     public static final int HAB_FRONT_FORWARD = 2;
@@ -16,7 +15,6 @@ public class RobotMap {
     public static final int HAB_BACK_REVERSE = 5;
     
     // Talons
-
     public static final int DRIVE_ZERO = 0;
     public static final int DRIVE_ONE = 1;
     public static final int DRIVE_TWO = 2;
