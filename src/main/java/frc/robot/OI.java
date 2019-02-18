@@ -14,7 +14,7 @@ public class OI {
     //public static Joystick leftJoystick = new Joystick(0);
     public static Joystick rightJoystick = new Joystick(0);
 
-    public static int gyroDrive() {
+    public static int gyroDrive() { //This simply reads in and returns a joystick button, and returns -1 if nothing is pressed
         if (rightJoystick.getRawButtonPressed(4) || rightJoystick.getRawButtonPressed(5) ||
         rightJoystick.getRawButtonPressed(6) || rightJoystick.getRawButtonPressed(7) ||
         rightJoystick.getRawButtonPressed(2)) {
