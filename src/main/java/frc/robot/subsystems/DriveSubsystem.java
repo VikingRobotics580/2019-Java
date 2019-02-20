@@ -9,6 +9,7 @@ import static frc.robot.RobotMap.*;
 
 import frc.robot.commands.DriveCommand;
 
+import frc.robot.OI;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Talon;
@@ -18,7 +19,7 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
 
 public class DriveSubsystem extends Subsystem {
 
-    ADXRS450_Gyro gyro;
+    ADXRS450_Gyro gyro = new ADXRS450_Gyro();
     double left;
     double right;
     double position;
@@ -35,10 +36,10 @@ public class DriveSubsystem extends Subsystem {
     private double jy;
 
     public DriveSubsystem() {
-        MotorZero = new Talon(0);
-        MotorOne = new Talon(1);
-        MotorTwo = new Talon(7);
-        MotorThree = new Talon(8);
+        MotorZero = new Talon(TALON_ZERO);
+        MotorOne = new Talon(TALON_ONE);
+        MotorTwo = new Talon(TALON_TWO);
+        MotorThree = new Talon(TALON_THREE);
 
         LeftDrive = new SpeedControllerGroup(MotorZero,MotorOne);
         RightDrive = new SpeedControllerGroup(MotorTwo,MotorThree);
@@ -50,8 +51,8 @@ public class DriveSubsystem extends Subsystem {
     public void Driver() {
         jx = rightJoystick.getX();
         jy = rightJoystick.getY();
-        left = (-jy) - (jx);
-        right = (-jy) + (jx);
+        right = (-jy) - (jx);
+        left = (-jy) + (jx);
         position = java.lang.Math.abs(left);
 
         if (position < java.lang.Math.abs(right)) {
@@ -63,7 +64,21 @@ public class DriveSubsystem extends Subsystem {
         right = right/position;
         }
         DriveTrain.tankDrive(left, right);
-        System.out.println(left + ", " + right);
+
+
+		/*if (OI.rightJoystick.getRawButtonPressed(6)) {
+            goto0();
+            System.out.println("lol");
+		}
+		if (OI.rightJoystick.getRawButtonPressed(2)) {
+			printAngle();
+        }
+        if (OI.rightJoystick.getRawButtonPressed(12)) {
+            System.out.println(left + ", " + right);
+        }
+        if (OI.rightJoystick.getRawButtonPressed(5)) {
+            testDrive();
+        }*/
     }
 
     public void initDefaultCommand() {
@@ -75,7 +90,7 @@ public class DriveSubsystem extends Subsystem {
         double to = gyro.getAngle() - 90;
         if (gyro.isConnected()) {
             while (gyro.getAngle() < to) {
-                DriveTrain.tankDrive(-1,-1);
+                DriveTrain.tankDrive(-0.2,-0.2);
             }
         } else {
             System.out.println("Gyro not connected!");
@@ -87,7 +102,7 @@ public class DriveSubsystem extends Subsystem {
         double to = gyro.getAngle() + 90;
         if (gyro.isConnected()) {
             while (gyro.getAngle() < to) {
-                DriveTrain.tankDrive(1,1);
+                DriveTrain.tankDrive(0.2,0.2);
             }
         } else {
             System.out.println("Gyro not connected!");
@@ -97,13 +112,13 @@ public class DriveSubsystem extends Subsystem {
     // Go back to 0
     public void goto0() {
         if (gyro.isConnected()) {
-            if (gyro.getAngle() > 180) {
-                while (gyro.getAngle() > -3 && gyro.getAngle() < 3) {
-                    DriveTrain.tankDrive(-1,-1);
+            if (gyro.getAngle() < 0) {
+                while (gyro.getAngle() > -3 ) {
+                    DriveTrain.tankDrive(0.6,-0.6);
                 }
-            } else {
-                while (gyro.getAngle() > -3 && gyro.getAngle() < 3) {
-                    DriveTrain.tankDrive(1,1);
+            } else if (gyro.getAngle() > 0) {
+                while (gyro.getAngle() < 3) {
+                    DriveTrain.tankDrive(-0.6,0.6);
                 }
             }
         } else {
@@ -111,11 +126,15 @@ public class DriveSubsystem extends Subsystem {
         }
     }
 
+    public void testDrive() {
+        DriveTrain.tankDrive(1, -1);
+    }
+
     // Go to 180 degree position
     public void goto180() {
         if (gyro.isConnected()) {
             while (gyro.getAngle() > 179 && gyro.getAngle() < 181) {
-                DriveTrain.tankDrive(-1,-1);
+                DriveTrain.tankDrive(-0.2,-0.2);
             }
         } else {
             System.out.println("Gyro not connected!");

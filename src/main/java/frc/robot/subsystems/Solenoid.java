@@ -22,9 +22,8 @@ public class Solenoid extends Subsystem {
 
     public Solenoid() {
         hatch = new DoubleSolenoid(0, 1);	
-        //habFront = new DoubleSolenoid(2, 3);	
-        //habBack = new DoubleSolenoid(4, 5);	
-        joystick = OI.rightJoystick;
+        habFront = new DoubleSolenoid(2, 3);	
+        habBack = new DoubleSolenoid(4, 5);	
     }
 
     public boolean isWorking() {
@@ -33,43 +32,52 @@ public class Solenoid extends Subsystem {
 
     public void runSolenoid() {
 
-        if (joystick.getRawButtonPressed(12) == true && joystick.getRawButtonPressed(11) != true) {
+        if (OI.rightJoystick.getRawButtonPressed(12) == true && OI.rightJoystick.getRawButtonPressed(11) != true) {
             hatch.set(DoubleSolenoid.Value.kForward); 
         } else {
             hatch.set(DoubleSolenoid.Value.kOff); 
         }
     
-        if (joystick.getRawButtonPressed(11) == true && joystick.getRawButtonPressed(12) != true) {
+        if (OI.rightJoystick.getRawButtonPressed(11) == true && OI.rightJoystick.getRawButtonPressed(12) != true) {
             hatch.set(DoubleSolenoid.Value.kReverse); 
         } else {
             hatch.set(DoubleSolenoid.Value.kOff); 
         }
 
-        if(joystick.getRawButton(10) == true && joystick.getRawButton(9) != true) {
-            //habFront.set(DoubleSolenoid.Value.kForward); 
+        if(OI.rightJoystick.getRawButtonPressed(10) == true && OI.rightJoystick.getRawButtonPressed(9) != true) {
+            System.out.println("Habfron out");
+            habFront.set(DoubleSolenoid.Value.kForward); 
         } else {
-            //habFront.set(DoubleSolenoid.Value.kOff); 
+            habFront.set(DoubleSolenoid.Value.kOff); 
         }
     
 
-        if(joystick.getRawButton(9) == true && joystick.getRawButton(10) != true) {
-            //habFront.set(DoubleSolenoid.Value.kReverse);
+        if(OI.rightJoystick.getRawButtonPressed(9) == true && OI.rightJoystick.getRawButtonPressed(10) != true) {
+            habFront.set(DoubleSolenoid.Value.kReverse);
+            System.out.println("Habfron out");
         } else {
-            //habFront.set(DoubleSolenoid.Value.kOff); 
+            habFront.set(DoubleSolenoid.Value.kOff); 
+
         }
     
 
-        if(joystick.getRawButton(8) == true && joystick.getRawButton(7) != true) {
-            //habBack.set(DoubleSolenoid.Value.kForward); 
+        if(OI.rightJoystick.getRawButtonPressed(8) == true && OI.rightJoystick.getRawButtonPressed(7) != true) {
+            habBack.set(DoubleSolenoid.Value.kForward); 
+            System.out.println("Habfron out");
+
         } else {
-            //habFront.set(DoubleSolenoid.Value.kOff); 
+            habFront.set(DoubleSolenoid.Value.kOff); 
+
         }
     
 
-        if(joystick.getRawButton(7) == true && joystick.getRawButton(8) != true) {
-            //habBack.set(DoubleSolenoid.Value.kReverse); 
+        if(OI.rightJoystick.getRawButtonPressed(7) == true && OI.rightJoystick.getRawButtonPressed(8) != true) {
+            habBack.set(DoubleSolenoid.Value.kReverse); 
+            System.out.println("Habfron out");
+
         } else {
-            //habFront.set(DoubleSolenoid.Value.kOff); 
+            habFront.set(DoubleSolenoid.Value.kOff); 
+
         }
     
     }

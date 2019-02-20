@@ -5,6 +5,8 @@
 
 package frc.robot.subsystems;
 
+import frc.robot.OI;
+import frc.robot.RobotMap;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -12,24 +14,25 @@ import frc.robot.commands.ElevatorCommand;
 
 public class Elevator extends Subsystem {
 
-    private Talon Elevator;
-    private Joystick joystick;
+    private Talon LeftElevator = new Talon(4);
+    private Talon RightElevator = new Talon(5);
 
     public void elevator(){
 
-        if(joystick.getRawButton(10) == true && joystick.getRawButton(9) != true)
-        {
-            Elevator.set(0.5); //Up when 10 is pressed
+        if(OI.rightJoystick.getRawButton(10) == true && OI.rightJoystick.getRawButton(9) != true) {
+            LeftElevator.set(0.5); //Up when 10 is pressed
+            RightElevator.set(-0.5); //Up when 10 is pressed
+            System.out.println("10");
         }
-        else if(joystick.getRawButton(9) == true && joystick.getRawButton(10) != true)
-        {
-            Elevator.set(-0.5); //Down when 9 is pressed
+        else if(OI.rightJoystick.getRawButton(9) == true && OI.rightJoystick.getRawButton(10) != true) {
+            LeftElevator.set(-0.5); //Down when 9 is pressed
+            RightElevator.set(0.5); //Down when 9 is pressed
+            System.out.println("9");
         }
-        else
-        {
-            Elevator.set(0.0); //Nothing while nothing is pressed
+        else {
+            LeftElevator.set(0.0); //Nothing while nothing is pressed
+            RightElevator.set(0.0); //Nothing while nothing is pressed
         }
-
     }
 
     public void initDefaultCommand() {

@@ -7,7 +7,7 @@ import static frc.robot.OI.*;
 public class ElevatorCommand extends Command {
 
 	public ElevatorCommand() {
-		//requires(Robot.elevator);
+		requires(Robot.elevator);
 	}
 
 	@Override
@@ -16,7 +16,7 @@ public class ElevatorCommand extends Command {
 
 	@Override
 	protected void execute() {
-		//Robot.elevator.elevator();;
+		Robot.elevator.elevator();;
 	}
 
 	@Override
