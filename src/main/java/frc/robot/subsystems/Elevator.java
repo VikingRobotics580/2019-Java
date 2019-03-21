@@ -20,13 +20,13 @@ public class Elevator extends Subsystem {
     public void elevator(){
 
         if(OI.rightJoystick.getRawButton(10) == true && OI.rightJoystick.getRawButton(9) != true) {
-            LeftElevator.set(0.5); //Up when 10 is pressed
-            RightElevator.set(-0.5); //Up when 10 is pressed
+            LeftElevator.set(0.1); //Up when 10 is pressed
+            RightElevator.set(-0.1); //Up when 10 is pressed
             System.out.println("10");
         }
         else if(OI.rightJoystick.getRawButton(9) == true && OI.rightJoystick.getRawButton(10) != true) {
-            LeftElevator.set(-0.5); //Down when 9 is pressed
-            RightElevator.set(0.5); //Down when 9 is pressed
+            LeftElevator.set(-0.1); //Down when 9 is pressed
+            RightElevator.set(0.1); //Down when 9 is pressed
             System.out.println("9");
         }
         else {

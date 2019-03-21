@@ -8,7 +8,7 @@ import static frc.robot.RobotMap.*;
 //import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import frc.robot.commands.DriveCommand;
-
+//import com.analog.adis16448.frc.ADIS16448_IMU;
 import frc.robot.OI;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.RobotDrive;
@@ -18,7 +18,7 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 
 public class DriveSubsystem extends Subsystem {
-
+    //public static final ADIS16448_IMU imu = new ADIS16448_IMU();
     ADXRS450_Gyro gyro = new ADXRS450_Gyro();
     double left;
     double right;
@@ -27,6 +27,7 @@ public class DriveSubsystem extends Subsystem {
     private Talon MotorOne;
     private Talon MotorTwo;
     private Talon MotorThree;
+    private int g = 0;
 
     private DifferentialDrive DriveTrain;
     private SpeedControllerGroup LeftDrive;
@@ -79,6 +80,13 @@ public class DriveSubsystem extends Subsystem {
         if (OI.rightJoystick.getRawButtonPressed(5)) {
             testDrive();
         }*/
+
+        if (OI.rightJoystick.getRawButtonPressed(7)) {
+            g = 1;
+        }
+        if (OI.rightJoystick.getRawButtonPressed(8)) {
+            g = 0;
+        }
     }
 
     public void initDefaultCommand() {
@@ -144,5 +152,13 @@ public class DriveSubsystem extends Subsystem {
     public void printAngle() {
         System.out.println("Gyro: " + gyro.getAngle());
     }
+
+    /*public double angle() {
+        if (g = 1) {
+            return imu.getAngle();
+        } else { 
+            return gyro.getAngle();
+        }
+    }*/
 
 }
