@@ -22,8 +22,8 @@ public class Solenoid extends Subsystem {
 
     public Solenoid() {
         hatch = new DoubleSolenoid(0, 1);	
-        habFront = new DoubleSolenoid(2, 3);	
-        habBack = new DoubleSolenoid(4, 5);	
+        habBack = new DoubleSolenoid(2, 3);	
+        habFront = new DoubleSolenoid(4, 5);
     }
 
     public boolean isWorking() {
@@ -34,52 +34,42 @@ public class Solenoid extends Subsystem {
 
         if (OI.rightJoystick.getRawButtonPressed(12) == true && OI.rightJoystick.getRawButtonPressed(11) != true) {
             hatch.set(DoubleSolenoid.Value.kForward); 
-        } else {
-            hatch.set(DoubleSolenoid.Value.kOff); 
+        /*} else {
+            hatch.set(DoubleSolenoid.Value.kOff); */
         }
     
         if (OI.rightJoystick.getRawButtonPressed(11) == true && OI.rightJoystick.getRawButtonPressed(12) != true) {
             hatch.set(DoubleSolenoid.Value.kReverse); 
-        } else {
-            hatch.set(DoubleSolenoid.Value.kOff); 
+        /*} else {
+            hatch.set(DoubleSolenoid.Value.kOff); */
         }
 
         if(OI.rightJoystick.getRawButtonPressed(10) == true && OI.rightJoystick.getRawButtonPressed(9) != true) {
-            System.out.println("Habfron out");
             habFront.set(DoubleSolenoid.Value.kForward); 
-        } else {
-            habFront.set(DoubleSolenoid.Value.kOff); 
+        /*} else {
+            habFront.set(DoubleSolenoid.Value.kOff);*/
         }
     
 
         if(OI.rightJoystick.getRawButtonPressed(9) == true && OI.rightJoystick.getRawButtonPressed(10) != true) {
             habFront.set(DoubleSolenoid.Value.kReverse);
-            System.out.println("Habfron out");
-        } else {
-            habFront.set(DoubleSolenoid.Value.kOff); 
-
+        /*} else {
+            habFront.set(DoubleSolenoid.Value.kOff);*/
         }
     
 
         if(OI.rightJoystick.getRawButtonPressed(8) == true && OI.rightJoystick.getRawButtonPressed(7) != true) {
             habBack.set(DoubleSolenoid.Value.kForward); 
-            System.out.println("Habfron out");
-
-        } else {
-            habFront.set(DoubleSolenoid.Value.kOff); 
-
+        /*} else {
+            habFront.set(DoubleSolenoid.Value.kOff);*/ 
         }
     
 
         if(OI.rightJoystick.getRawButtonPressed(7) == true && OI.rightJoystick.getRawButtonPressed(8) != true) {
             habBack.set(DoubleSolenoid.Value.kReverse); 
-            System.out.println("Habfron out");
-
-        } else {
-            habFront.set(DoubleSolenoid.Value.kOff); 
-
+        /*} else {
+            habFront.set(DoubleSolenoid.Value.kOff);*/
         }
-    
     }
     
     public void initDefaultCommand() {

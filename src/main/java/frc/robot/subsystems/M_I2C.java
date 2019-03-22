@@ -106,7 +106,7 @@ public class M_I2C extends Subsystem {
 	}*/
 
 	public void initDefaultCommand() {
-        setDefaultCommand(new ArduinoCommand());
+        //setDefaultCommand(new ArduinoCommand());
 	}
 	
 }

@@ -69,7 +69,6 @@ public class DriveSubsystem extends Subsystem {
 
 		/*if (OI.rightJoystick.getRawButtonPressed(6)) {
             goto0();
-            System.out.println("lol");
 		}
 		if (OI.rightJoystick.getRawButtonPressed(2)) {
 			printAngle();
