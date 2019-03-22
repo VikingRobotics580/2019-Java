@@ -1,3 +1,7 @@
+// VikingRobotics 2019 FRC Robotics
+// Programming Team: Bhada Yun, Finn Cawley, Kate Hirshberg
+// Ball Shooter code
+
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;

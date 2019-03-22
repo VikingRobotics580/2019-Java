@@ -1,219 +1,110 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
-//boat
+// VikingRobotics 2019 FRC Robotics
+// Programming Team: Bhada Yun, Finn Cawley, Kate Hirshberg
+// Robot base program
 
 package frc.robot;
 
+// General:
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.Talon;
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+
+import frc.robot.subsystems.*;
+import frc.robot.commands.*;
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+//import com.analog.adis16448.frc.ADIS16448_IMU;
+
+import org.opencv.core.Mat;
+import org.opencv.core.Point;
+import org.opencv.core.Scalar;
+import org.opencv.imgproc.Imgproc;
+
 import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.CvSource;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
-import edu.wpi.first.wpilibj.buttons.Button;
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Robot extends TimedRobot {
-
-    private Joystick joystick;
-    private DifferentialDrive DriveTrain;
-    private SpeedControllerGroup LeftDrive;
-    private SpeedControllerGroup RightDrive;
-
-    private Talon MotorZero;
-    private Talon MotorOne;
-    private Talon MotorTwo;
-    private Talon MotorThree;
-    private Talon Elevator;
-    private Talon BallMotor;
-    private Talon BallShooter;
-
-    private Timer m_timer = new Timer();
-
-    private double left;
-    private double right;
-    private double position;
-    private boolean pressed;
-
-    private String status = "";
-
-    private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
-
-    M_I2C i2c = new M_I2C();
-    PixyData pkt = i2c.getPixy();
-    Solenoid solenoid = new Solenoid();
-
-    Button button3;
-    Button button4;
-    Button button5;
-    Button button6;
-    Button button7;
-    Button button8;
-    Button button9;
-    Button button10;
-    Button button11;
-    Button button12;
-
-    //Gyroscope gyro = new Gyroscope();
+    //public static final ADIS16448_IMU imu = new ADIS16448_IMU();
+    public static final DriveSubsystem drive = new DriveSubsystem();
+    public static final M_I2C m_i2c = new M_I2C();
+    public static final Solenoid solenoid = new Solenoid();
+    //public static BallShooter ballShooter = new BallShooter();
+    public static Elevator elevator = new Elevator();
+    //M_I2C i2c = new M_I2C();
 
     @Override
     public void robotInit() {
-
-        MotorZero = new Talon(0);
-        MotorOne = new Talon(1);
-        MotorTwo = new Talon(2);
-        MotorThree = new Talon(3);
-        Elevator = new Talon(4);
-        BallMotor = new Talon(5);
-        BallShooter = new Talon(6);
-    
-        LeftDrive = new SpeedControllerGroup(MotorZero, MotorOne);
-        RightDrive = new SpeedControllerGroup(MotorTwo, MotorThree);
-    
-        DriveTrain = new DifferentialDrive(LeftDrive, RightDrive);
-        joystick = new Joystick(0);
-        
-        pressed = false;
-
-        //UsbCamera cam1 = CameraServer.getInstance().startAutomaticCapture();
-        //cam1.setResolution(320, 240);
-
-        System.out.println("bitcht");
-
-        System.out.println(pkt.area);
-        System.out.println(pkt.x);
-        System.out.println(pkt.y);
-
-        button3 = new JoystickButton(joystick, 3);
-        button4 = new JoystickButton(joystick, 4);
-        button5 = new JoystickButton(joystick, 5);
-        button6 = new JoystickButton(joystick, 6);
-        button6 = new JoystickButton(joystick, 7);
-        button9 = new JoystickButton(joystick, 8);
-        button9 = new JoystickButton(joystick, 9);
-        button10 = new JoystickButton(joystick, 10);
-        button11 = new JoystickButton(joystick, 11);
-        button12 = new JoystickButton(joystick, 12);
-
-        //UsbCamera cam1 = CameraServer.getInstance().startAutomaticCapture();
-        //cam1.setResolution(320, 240);
-
-    }
-
-    public void centerOnObject(){
-        //pixy values: (x = 0.70-0.85) (y = 0.45 - 0.65) (a = 0.04-0.07)
-
-        pkt = i2c.getPixy();
-        if(pkt.x != -1){//if data is exist
-            System.out.println("Pixy is set up");
-            status = "good";
-            if((pkt.x >= 0.70 && pkt.x <= 0.85) && (pkt.y >= 0.45 && pkt.y <= 0.65) && (pkt.area >= 0.4 && pkt.area <= 0.7)) {
-                while(pkt.x < .48 || pkt.x > .52){//while it is not center
-                    
-                    if(pkt.x < .48){//if its on the left side of robot, turn left
-                        System.out.println("Would go left");
-                        /*
-                        drive.setLDrive(-0.2);//this is our left side of tank drive
-                        drive.setRDrive(0.2);//you drive code might differ
-                        */
-                    }
-                    if(pkt.x > .52){//if its on the right side of robot, turn right
-                        System.out.println("Would go right");
-                        /*
-                        drive.setLDrive(0.2);
-                        drive.setRDrive(-0.2);
-                        */
-                    }
-                    if(pkt.y == -1) {//Restart if ball lost during turn
-                        System.out.println("Restart ball");
-                        break;
-                    }
-                    pkt = i2c.getPixy();//refresh the data
-                    System.out.println("XPos: " + pkt.x);//print the data just to see
-                }
+        SmartDashboard.putString("Robot", "initialized");
+        new Thread(() -> {
+            UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+            camera.setResolution(320, 240);
+            camera.setFPS(30);
+                        
+            CvSink cvSink = CameraServer.getInstance().getVideo();
+            CvSource outputStream = CameraServer.getInstance().putVideo("Front Camera", 320, 240);
+                        
+            Mat frame = new Mat();
+            Point pt1 = new Point(155, 120);
+            Point pt2 = new Point(165, 120);
+            Point pt3 = new Point(160, 115);
+            Point pt4 = new Point(160, 125);
+            Scalar color = new Scalar(255, 255, 255);
+                        
+            while(!Thread.interrupted()) {
+              if (cvSink.grabFrame(frame) == 0) {
+                continue;
+              }
+              Imgproc.line(frame, pt1, pt2, color, 1);
+              Imgproc.line(frame, pt3, pt4, color, 1);
+              outputStream.putFrame(frame);
             }
-        }
-            
-        if (!status.equals("bad")) {
-            System.out.println(pkt.area);
-            System.out.println(pkt.x);
-            System.out.println(pkt.y);
-            System.out.println("Camera data no data");
-            status = "bad";
-        }
-    }  
-    
-    //boat oat wrote moat afloat coat goat float bloat scapegoat throat haha
-    //shooters = windshield
-    //pulleys = talons
-
-    public void drive() {
-
-        left = (-joystick.getY()) - (joystick.getX());
-        right = (-joystick.getY()) + (joystick.getX());
-        position = java.lang.Math.abs(left);
-
-        if (position < java.lang.Math.abs(right)) {
-          position = java.lang.Math.abs(right);
-        }
-
-        if (position > 1) {
-          left = left/position;
-          right = right/position;
-        }
-
-        DriveTrain.tankDrive(left, right);
+        }).start();
     }
 
-    public void checkConnections() {
-        if (i2c.getPixy().x != -1) {
-            System.out.println("Pixy Status: Working");
-            System.out.println("Pixy Status: Error");
-        } 
-        Timer.delay(1);
+    // Base Periodic Code for Teleop and Autonomous
+    public void periodic() {
+        Scheduler.getInstance().run();
+        /*SmartDashboard.putNumber("Gyro-X", imu.getAngleX());
+        SmartDashboard.putNumber("Gyro-Y", imu.getAngleY());
+        SmartDashboard.putNumber("Gyro-Z", imu.getAngleZ());
+        
+        SmartDashboard.putNumber("Accel-X", imu.getAccelX());
+        SmartDashboard.putNumber("Accel-Y", imu.getAccelY());
+        SmartDashboard.putNumber("Accel-Z", imu.getAccelZ());
+        
+        SmartDashboard.putNumber("Pitch", imu.getPitch());
+        SmartDashboard.putNumber("Roll", imu.getRoll());
+        SmartDashboard.putNumber("Yaw", imu.getYaw());
+        
+        SmartDashboard.putNumber("Pressure: ", imu.getBarometricPressure());
+        SmartDashboard.putNumber("Temperature: ", imu.getTemperature());*/
     }
 
+    // Teleop
     @Override
     public void teleopPeriodic() {
-        /**if (joystick.getRawButton(12) && !pressed) {
-            checkConnections();
-            pressed = true;
-        } else if (!joystick.getRawButton(12)) {
-            pressed = false;
-        }*/
-
-        /*if (joystick.getRawButton(11) && !pressed) {
-            System.out.println(gyro.getAngle());
-            pressed = true;
-        } else if (!joystick.getRawButton(11)) {
-            pressed = false;
-        }
-        */
-
-        drive();
-        //solenoid.habSolenoidBack();
-        //solenoid.habSolenoidFront();
-        if (joystick.getRawButton(12) || joystick.getRawButton(11)) {
-            solenoid.hatchSolenoid();
-        }
-
-        /*if (joystick.getRawButton(10) && !pressed) {
-            System.out.println(i2c.getDistance());
-            pressed = true;
-        } else if (!joystick.getRawButton(10)) {
-            pressed = false;
-        }
-        */
+        periodic();
     }
+
+    // Autonomous
+    @Override
+    public void autonomousPeriodic() {
+        periodic();
+    }
+
 }
+
+//chooser = new SendableChooser();
+//chooser = new SendableChooser();
+//drv.setDefaultOption("Drive", new DriveCommand());
+//sol.setDefaultOption("Solenoid", new SolenoidCommand());
+//m_chooser.setDefaultOption("M_I2C", new ArduinoCommand());
+//drv.setDefaultOption("Drive", new DriveCommand());
+//sol.setDefaultOption("Solenoid", new SolenoidCommand());
+//m_chooser.setDefaultOption("M_I2C", new ArduinoCommand());
+//SendableChooser chooser;
+//SmartDashboard.putData("Chooser",chooser);
