@@ -16,13 +16,14 @@ public class Solenoid {
         compressor = new Compressor();
         hatch = new DoubleSolenoid(0, 1);	
         habFront = new DoubleSolenoid(2, 3);	
-        habBack = new DoubleSolenoid(4, 5);	
+        habBack = new DoubleSolenoid(4, 5);
+        compressor.start();
+        compressor.setClosedLoopControl(true);	
     }
 
     public void hatchSolenoid() {
     //Reads imput from joystick and controls double solenoid based on input
-        compressor.start();
-        compressor.setClosedLoopControl(true);
+        //compressor.setClosedLoopControl(false);
         
         if(joystick.getRawButton(12) == true && joystick.getRawButton(11) != true)
         {
@@ -67,6 +68,7 @@ public class Solenoid {
     //Reads imput from joystick and controls double solenoid based on input
         compressor.start();
         compressor.setClosedLoopControl(true);
+        compressor.setClosedLoopControl(false);
         
         if(joystick.getRawButton(7) == true && joystick.getRawButton(8) != true)
         {
