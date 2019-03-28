@@ -67,29 +67,39 @@ public class DriveSubsystem extends Subsystem {
         DriveTrain.tankDrive(left, right);
 
 
-		/*if (OI.rightJoystick.getRawButtonPressed(6)) {
-            goto0();
+		if (OI.rightJoystick.getRawButtonPressed(5)) {
+            //goto0();
 		}
+        if (OI.rightJoystick.getRawButtonPressed(1)) {
+            goto180();
+        }
 		if (OI.rightJoystick.getRawButtonPressed(2)) {
 			printAngle();
         }
-        if (OI.rightJoystick.getRawButtonPressed(12)) {
-            System.out.println(left + ", " + right);
+        if (OI.rightJoystick.getRawButtonPressed(3)) {
+			reset();
         }
+        //if (OI.rightJoystick.getRawButtonPressed(12)) {
+            //System.out.println(left + ", " + right);
+        //}
         if (OI.rightJoystick.getRawButtonPressed(5)) {
-            testDrive();
-        }*/
-
+            //testDrive();
+        }
+        /*
         if (OI.rightJoystick.getRawButtonPressed(7)) {
             g = 1;
         }
         if (OI.rightJoystick.getRawButtonPressed(8)) {
             g = 0;
-        }
+        }*/
     }
 
     public void initDefaultCommand() {
         setDefaultCommand(new DriveCommand());
+    }
+
+    public void reset() {
+        gyro.reset();
     }
 
     // Rotate robot 90 deg to the left
@@ -120,11 +130,11 @@ public class DriveSubsystem extends Subsystem {
     public void goto0() {
         if (gyro.isConnected()) {
             if (gyro.getAngle() < 0) {
-                while (gyro.getAngle() > -3 ) {
+                while (gyro.getAngle() > -3 && !OI.rightJoystick.getRawButtonPressed(2)) {
                     DriveTrain.tankDrive(0.6,-0.6);
                 }
             } else if (gyro.getAngle() > 0) {
-                while (gyro.getAngle() < 3) {
+                while (gyro.getAngle() < 3 && !OI.rightJoystick.getRawButtonPressed(2)) {
                     DriveTrain.tankDrive(-0.6,0.6);
                 }
             }
@@ -140,9 +150,10 @@ public class DriveSubsystem extends Subsystem {
     // Go to 180 degree position
     public void goto180() {
         if (gyro.isConnected()) {
-            while (gyro.getAngle() > 179 && gyro.getAngle() < 181) {
-                DriveTrain.tankDrive(-0.2,-0.2);
+            while ((!(gyro.getAngle() > 179 && gyro.getAngle() < 181)) && !OI.rightJoystick.getRawButtonPressed(2)) {
+                DriveTrain.tankDrive(0.75,-0.75);
             }
+            reset();
         } else {
             System.out.println("Gyro not connected!");
         }

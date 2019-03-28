@@ -22,8 +22,8 @@ public class Solenoid extends Subsystem {
 
     public Solenoid() {
         hatch = new DoubleSolenoid(0, 1);	
-        habBack = new DoubleSolenoid(2, 3);	
-        habFront = new DoubleSolenoid(4, 5);
+        habFront = new DoubleSolenoid(2, 3);	
+        habBack = new DoubleSolenoid(4, 5);
     }
 
     public boolean isWorking() {
@@ -33,15 +33,15 @@ public class Solenoid extends Subsystem {
     public void runSolenoid() {
 
         if (OI.rightJoystick.getRawButtonPressed(12) == true && OI.rightJoystick.getRawButtonPressed(11) != true) {
-            hatch.set(DoubleSolenoid.Value.kForward); 
+            hatch.set(DoubleSolenoid.Value.kReverse); 
         /*} else {
-            hatch.set(DoubleSolenoid.Value.kOff); */
+            hatch.set(DoubleSolenoid.Value.kOff);*/
         }
     
         if (OI.rightJoystick.getRawButtonPressed(11) == true && OI.rightJoystick.getRawButtonPressed(12) != true) {
-            hatch.set(DoubleSolenoid.Value.kReverse); 
+            hatch.set(DoubleSolenoid.Value.kForward); 
         /*} else {
-            hatch.set(DoubleSolenoid.Value.kOff); */
+            hatch.set(DoubleSolenoid.Value.kOff);*/
         }
 
         if(OI.rightJoystick.getRawButtonPressed(10) == true && OI.rightJoystick.getRawButtonPressed(9) != true) {

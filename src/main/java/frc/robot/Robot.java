@@ -40,29 +40,34 @@ public class Robot extends TimedRobot {
     public void robotInit() {
         SmartDashboard.putString("Robot", "initialized");
         new Thread(() -> {
-            UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+            UsbCamera camera = CameraServer.getInstance().startAutomaticCapture(0);
             camera.setResolution(320, 240);
-            camera.setFPS(30);
+            camera.setFPS(50);
                         
             CvSink cvSink = CameraServer.getInstance().getVideo();
             CvSource outputStream = CameraServer.getInstance().putVideo("Front Camera", 320, 240);
                         
             Mat frame = new Mat();
-            Point pt1 = new Point(155, 120);
-            Point pt2 = new Point(165, 120);
-            Point pt3 = new Point(160, 115);
-            Point pt4 = new Point(160, 125);
-            Scalar color = new Scalar(255, 255, 255);
+            Point pt1 = new Point(310, 240);
+            Point pt2 = new Point(165, 240);
+            Point pt3 = new Point(320, 230);
+            Point pt4 = new Point(320, 230);
+            Scalar color = new Scalar(0, 255, 255);
                         
             while(!Thread.interrupted()) {
               if (cvSink.grabFrame(frame) == 0) {
                 continue;
               }
-              Imgproc.line(frame, pt1, pt2, color, 1);
-              Imgproc.line(frame, pt3, pt4, color, 1);
+              Imgproc.line(frame, pt1, pt2, color, 2);
+              Imgproc.line(frame, pt3, pt4, color, 2);
               outputStream.putFrame(frame);
             }
         }).start();
+        
+        UsbCamera cam2 = CameraServer.getInstance().startAutomaticCapture(1);
+        cam2.setResolution(640, 480);
+        cam2.setFPS(50);
+
     }
 
     // Base Periodic Code for Teleop and Autonomous
