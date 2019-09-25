@@ -2,6 +2,8 @@
 // Programming Team: Bhada Yun, Finn Cawley, Kate Hirshberg
 // Ball Shooter code
 
+//Not recyclable, we may not use a ball shooter
+
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;

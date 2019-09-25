@@ -3,6 +3,10 @@
 // Solenoid Code
 // Lead: Finn Cawley & Bhada Yun
 
+
+
+//Non-recyclable, we're probably not using solenoids again
+
 package frc.robot.subsystems;
 
 import frc.robot.OI;

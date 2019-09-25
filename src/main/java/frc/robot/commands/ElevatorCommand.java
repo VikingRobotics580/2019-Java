@@ -4,6 +4,9 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import static frc.robot.OI.*;
 
+
+//Non-recyclable, we're not using an elevator EVER AGAIN
+
 public class ElevatorCommand extends Command {
 
 	public ElevatorCommand() {

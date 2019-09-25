@@ -4,7 +4,8 @@
 
 package frc.robot;
 
-//hi
+//Pretty good, though some parts may need to be removed if they aren't used in our robot
+
 // General:
 import edu.wpi.first.wpilibj.TimedRobot;
 

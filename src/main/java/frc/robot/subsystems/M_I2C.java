@@ -3,6 +3,10 @@
 // I2C Receiver for Arduino
 // Lead: Bhada Yun 
 
+
+
+//If we use an I2C for our arduino, we can use it
+
 package frc.robot.subsystems;
 
 import frc.robot.Robot;

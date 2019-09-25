@@ -4,6 +4,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import static frc.robot.OI.*;
 
+
+//Non-recyclable, we won't use a ballshooter again
 public class BallShooterCommand extends Command {
 
 	public BallShooterCommand() {

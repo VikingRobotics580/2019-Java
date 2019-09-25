@@ -4,6 +4,9 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import static frc.robot.OI.*;
 
+
+//Might be recyclable, if we use arduinos
+
 public class ArduinoCommand extends Command {
 
 	public ArduinoCommand() {

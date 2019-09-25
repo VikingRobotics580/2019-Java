@@ -2,6 +2,8 @@ package frc.robot;
 
 public class RobotMap {
 
+    //Recyclable so long as we still use the joystick, otherwise will need to change
+
     // Joystick
     public static final int LEFT_JOYSTICK = 0;
     public static final int RIGHT_JOYSTICK = 1;

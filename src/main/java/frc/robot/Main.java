@@ -9,6 +9,8 @@
 // Programming Team: Bhada Yun, Finn Cawley, Kate Hirshberg
 // Main, DO NOT EDIT
 
+//Recycle, as a core class it works fine.
+
 package frc.robot;
 
 import edu.wpi.first.wpilibj.RobotBase;

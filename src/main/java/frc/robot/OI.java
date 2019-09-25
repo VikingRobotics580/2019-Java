@@ -4,6 +4,7 @@
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
+//Keep, but will need to be updated if we switch controllers
 
 package frc.robot;
 

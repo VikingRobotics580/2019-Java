@@ -3,6 +3,10 @@
 // Arduino data receiver
 // Lead: Bhada Yun, Kate Hirshberg
 
+
+
+//Recyclable if we use an arduino
+
 package frc.robot.subsystems;
 
 public class Arduino {

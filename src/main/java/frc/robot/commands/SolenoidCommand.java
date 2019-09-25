@@ -4,6 +4,9 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import static frc.robot.OI.*;
 
+
+//Non-recyclable, we likely won't use solenoids again ;(
+
 public class SolenoidCommand extends Command {
 
 	public SolenoidCommand() {
